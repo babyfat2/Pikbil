@@ -16,7 +16,7 @@ import darkMode from "./slice/darkMode";
 const persistConfig = {
   key: "root",
   storage: reduxStorage,
-  whitelist: ["routes", "prefs", "user"],
+  whitelist: ["routeApp", "darkMode"],
 };
   const reducer = combineReducers({
     routeApp,

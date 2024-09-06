@@ -7,7 +7,7 @@ export type RouteApp = {
 };
 
 const routeApp = createSlice({
-    name: "RouteApp",
+    name: "routeApp",
     initialState: {
         isFirst: true,
         isAuth: false,

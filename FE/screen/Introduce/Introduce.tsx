@@ -2,37 +2,89 @@ import {
   View,
   Dimensions,
   StyleSheet,
+  Image,
   Text,
   TouchableOpacity,
 } from "react-native";
-import React, { useEffect, useState } from "react";;
+import React, { useState } from "react";;
 import { IColor } from "style/color";
 import useStyles from "style/useStyles";
-import { useAppDispatch, useAppSelector } from "redux/hooks.ts/hooks";
-import { dark, light } from "redux/slice/darkMode";
+import Animated, { FadeOut } from "react-native-reanimated";
+import { useAppDispatch } from "redux/hooks.ts/hooks";
+import { openAuth } from "redux/slice/routeApp";
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 function Introduce() {
   const { colors, styles } = useStyles(createStyles);
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const dispatch = useAppDispatch();
-  const darkMode = useAppSelector((state) => (state.darkMode));
-  console.log(colors);
-  const onPress = () => {
-    if (darkMode.status === "light") {
-      dispatch(dark());
-    } else {
-      dispatch(light());
+  const renderRoute = () => {
+    if (pageNumber === 1) {
+      return (
+        <View style={{
+          padding: 20,
+          marginBottom: 40,
+        }}>
+          <Image style={styles.imageWelcome} source={require('../../image/welcome1.png')} />
+          <Text style={styles.textHeaderWelcome}>Endless option</Text>
+          <Text style={styles.textWelcome}>Choose of hundred of models you won't find anywhere else. Pick it up or get it delivered where you want it.</Text>
+        </View>
+      )
     }
+    if (pageNumber === 2) {
+      return (
+        <View style={{
+          padding: 20,
+          marginBottom: 40,
+        }}>
+          <Image style={styles.imageWelcome} source={require('../../image/welcome2.png')} />
+          <Text style={styles.textHeaderWelcome}>Drive Confidently</Text>
+          <Text style={styles.textWelcome}>Choose of hundred of models you won't find anywhere else. Pick it up or get it delivered where you want it.</Text>
+        </View>
+      )
+    }
+    if (pageNumber === 3) {
+      return (
+        <View style={{
+          padding: 20,
+          marginBottom: 40,
+        }}>
+          <Image style={styles.imageWelcome} source={require('../../image/welcome3.png')} />
+          <Text style={styles.textHeaderWelcome}>24/7 Support</Text>
+          <Text style={styles.textWelcome}>Choose of hundred of models you won't find anywhere else. Pick it up or get it delivered where you want it.</Text>
+        </View>
+      )
+    }
+  }
+  const onPressNext = () => {
+    if(pageNumber <= 2) {
+    setPageNumber(pageNumber + 1);
+    } else {
+      dispatch(openAuth());
+    }
+  };
+  const onPressSkip = () => {
+    dispatch(openAuth());
   }
   return (
     <View
-      style={styles.container}
+      style={{
+          flex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: colors.backgroundColor,
+        }}
     >
-      <Text style={{ color: colors.textSecondary }}>abc</Text>
-      <TouchableOpacity style={{ height: 40, width: 50, backgroundColor: colors.secondary }} onPress={onPress} >
-
-      </TouchableOpacity>
+      {renderRoute()}
+      <View style={styles.containerUnder}>
+        <TouchableOpacity style={styles.buttonNext} onPress={onPressNext}>
+          <Text style={{color: "#FFF", fontSize: 18,}}>Next</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonSkip} onPress={onPressSkip}>
+          <Text style={{color: colors.textSecondary, fontSize: 18,}}>Skip</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
@@ -40,13 +92,50 @@ function Introduce() {
 const createStyles = (colors: IColor) =>
   StyleSheet.create({
     container: {
-      backgroundColor: colors.backgroundColor,
       flex: 1,
       justifyContent: "center",
       alignItems: "center",
-      paddingHorizontal: 25,
-      paddingVertical: height * 0.04,
+      backgroundColor: colors.backgroundColor,
+      padding: width / 10,
     },
+    imageWelcome: {
+      height: height * 0.4,
+      borderRadius: 40,
+      marginBottom: height * 0.1,
+    },
+    textHeaderWelcome: {
+      fontFamily: 'Montserrat-Bold',
+      fontSize: 24,
+      color: colors.textPrimary,
+      marginBottom: height * 0.03,
+    },
+    textWelcome: {
+      fontFamily: 'Montserrat-light',
+      fontSize: 18,
+      color: colors.textSecondary,
+    },
+    containerUnder: {
+      height: height * 0.06,
+      width: width * 0.8,
+    },
+    buttonNext: {
+      position: 'absolute',
+      right: 0,
+      height: height * 0.06,
+      width: height * 0.1,
+      justifyContent: "center",
+      alignItems: "center",
+      borderRadius: 10,
+      backgroundColor: colors.primary,
+    },
+    buttonSkip: {
+      position: 'absolute',
+      right: width * 0.2,
+      height: height * 0.06,
+      width: height * 0.1,
+      justifyContent: "center",
+      alignItems: "center",
+    }
   });
 
 export default Introduce;
