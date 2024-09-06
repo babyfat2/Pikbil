@@ -1,0 +1,80 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model User{
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  email               String             @unique
+  password            String
+  fullname            String
+  address             String
+  DateOfBirth         DateTime?
+  checkout            Checkout[]
+  car                 Car[]
+}
+
+model Car {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  desciption          String
+  fuel                String
+  iteriorColor        String
+  kilometers          String
+  seats               String
+  transmission        String
+  price               String
+  ownerId             String             @db.ObjectId
+  owner               User               @relation(fields: [ownerId],references: [id])
+  checkout            Checkout[]
+}
+
+model Protection {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  price               String
+  decription          String
+  checkout            Checkout[]
+}
+
+model Service {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
+  price               String
+  description         String
+  checkout            Checkout[]
+}
+
+model Discount {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  promoCode           String
+  decription          String
+  minimunRent         String
+  checkout            Checkout[]
+}
+
+model Checkout {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  VAT                 String             @default("10%")
+  status              String
+  carId               String             @db.ObjectId
+  car                 Car                @relation(fields: [carId], references: [id])
+  renterId            String             @db.ObjectId
+  renter              User               @relation(fields: [renterId], references: [id])
+  protectionId        String?            @db.ObjectId
+  protection          Protection?        @relation(fields: [protectionId], references: [id])
+  serviceId           String?            @db.ObjectId
+  service             Service?           @relation(fields: [serviceId], references: [id])
+  discountId          String?            @db.ObjectId
+  discount            Discount?          @relation(fields: [discountId], references: [id])         
+}
