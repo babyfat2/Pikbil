@@ -3,14 +3,9 @@ import React from "react";
 import { ReactNode, useEffect, useState } from "react";
 import { View, Image, Dimensions } from "react-native";
 import Animated, {
-    BounceOutDown,
     Easing,
-    FadeOut,
-    runOnJS,
-    useAnimatedReaction,
     useAnimatedStyle,
     useSharedValue,
-    withDelay,
     withTiming,
 } from "react-native-reanimated";
 
@@ -80,10 +75,11 @@ export function AnimatedSplashScreen({ children }: { children: ReactNode }) {
                     <Animated.Text
                         style={[
                             {
-                                fontFamily: "uberBold",
+                                fontFamily: 'COOPBL',
                                 fontSize: 60,
                                 paddingLeft: 60,
                                 textAlign: "center",
+                                color: "#424F7B",
                             },
                             animatedStyleNameApp,
                         ]}

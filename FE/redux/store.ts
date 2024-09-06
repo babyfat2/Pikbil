@@ -10,6 +10,7 @@ import { combineReducers, configureStore, } from "@reduxjs/toolkit";
   } from "redux-persist";
 import { reduxStorage } from "./storage";
 import routeApp from "./slice/routeApp";
+import darkMode from "./slice/darkMode";
 
 
 const persistConfig = {
@@ -19,6 +20,7 @@ const persistConfig = {
 };
   const reducer = combineReducers({
     routeApp,
+    darkMode,
   });
   const persistedReducer = persistReducer(persistConfig, reducer);
   export const store = configureStore({
