@@ -8,11 +8,11 @@ import { IColor } from "style/color";
 import useStyles from "style/useStyles";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import Introduce from "./Introduce/Introduce";
-import Login from "./auth/Login";
+import Auth from "navigation/auth";
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
-function navigation() {
+function Navigation() {
     const { colors, styles } = useStyles(createStyles);
     const routeApp = useAppSelector((state) => (state.routeApp));
     if (routeApp.isFirst) {
@@ -20,7 +20,9 @@ function navigation() {
             <Introduce />
         )
     } else {
-        <Login />
+        return (
+        <Auth />
+        )
     }
 
 }
@@ -36,4 +38,4 @@ const createStyles = (colors: IColor) =>
         },
     });
 
-export default navigation;
+export default Navigation;

@@ -5,6 +5,7 @@ import { AnimatedSplashScreen } from 'screen/animatedSplashScreen';
 import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
 import Navigation from 'screen/navigation';
+import { NavigationContainer } from '@react-navigation/native';
 
 const persistor = persistStore(store);
 
@@ -14,7 +15,9 @@ export default function App() {
     <Provider store={store}>
       <PersistGate persistor={persistor}>
         <AnimatedSplashScreen>
+        <NavigationContainer>
           <Navigation />
+        </NavigationContainer>
         </AnimatedSplashScreen>
       </PersistGate>
     </Provider>

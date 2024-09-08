@@ -11,16 +11,20 @@ import { combineReducers, configureStore, } from "@reduxjs/toolkit";
 import { reduxStorage } from "./storage";
 import routeApp from "./slice/routeApp";
 import darkMode from "./slice/darkMode";
+import { authApi } from "./api/auth";
+import user from "./slice/user";
 
 
 const persistConfig = {
   key: "root",
   storage: reduxStorage,
-  whitelist: ["routeApp", "darkMode"],
+  whitelist: ["routeApp", "darkMode", "user"],
 };
   const reducer = combineReducers({
     routeApp,
     darkMode,
+    user,
+    [authApi.reducerPath]: authApi.reducer,
   });
   const persistedReducer = persistReducer(persistConfig, reducer);
   export const store = configureStore({
@@ -33,6 +37,7 @@ const persistConfig = {
           ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
         },
       })
+      .concat(authApi.middleware)
   });
   
   export type RootState = ReturnType<typeof store.getState>;
