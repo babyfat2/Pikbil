@@ -14,3 +14,8 @@ Router for user's action. Router returns file json which include data user and m
 
  - `/api/user/updateProfile` : Endpoint for update profile.
  - `/api/user/changePassword` : Endpoint for change password.
+
+### Service
+Router for system service.
+
+ - `/api/service/checkDiscount`: Endfor for result discount. 

@@ -6,7 +6,7 @@ export async function changePassword(
   res: Response,
   next: NextFunction
 ) {
-  console.log("🚀 ~ file: src/controler/user/updateProfile");
+  console.log("🚀 ~ file: src/controler/user/changePassword");
   const id = req.user.id;
   const { password }: { password: string } = req.body;
   try {
