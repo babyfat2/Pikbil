@@ -13,3 +13,4 @@ Router for user's action. Router returns msg which include action's result.
 Router for user's action. Router returns file json which include data user and msg.
 
  - `/api/user/updateProfile` : Endpoint for update profile.
+ - `/api/user/changePassword` : Endpoint for change password.

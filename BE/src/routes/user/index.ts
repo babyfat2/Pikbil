@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { updateProfile } from "../../controller/user/updateProfile";
+import { changePassword } from "../../controller/user/changePassword";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -7,5 +8,6 @@ router.get("/", (req, res) => {
 });
 
 router.post("/updateProfile", updateProfile);
+router.post("/changePassword", changePassword);
 
 export default router;
