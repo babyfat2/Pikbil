@@ -57,6 +57,7 @@ exports.protect = protect;
 const blockJWT = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const bearer = req.headers.authorization;
     console.log(bearer);
+    console.log(req.session);
     const tokenFromSession = req.session.token;
     console.log("🚀 ~ file: index.ts:68 ~ blockJWT ~ tokenFromSession:", tokenFromSession);
     if (!tokenFromSession) {

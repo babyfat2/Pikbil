@@ -6,6 +6,7 @@ export async function login(
   res: Response,
   next: NextFunction
 ) {
+  console.log("🚀 ~ file: src/controler/auth/login");
   const { email, password }: { email: string; password: string } = req.body;
   const formattedEmail = email.toLowerCase();
   try {

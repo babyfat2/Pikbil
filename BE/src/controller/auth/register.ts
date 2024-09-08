@@ -7,6 +7,7 @@ export async function register(
   res: Response,
   next: NextFunction
 ) {
+  console.log("🚀 ~ file: src/controler/auth/register");
   const {
     email,
     password,

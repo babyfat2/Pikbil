@@ -27,7 +27,7 @@ model Car {
   name                String
   desciption          String
   fuel                String
-  iteriorColor        String
+  interiorColor       String
   kilometers          String
   seats               String
   transmission        String

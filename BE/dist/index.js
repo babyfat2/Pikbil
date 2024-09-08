@@ -8,8 +8,10 @@ const dotenv_1 = __importDefault(require("dotenv"));
 const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const body_parser_1 = __importDefault(require("body-parser"));
-const auth_1 = __importDefault(require("./src/routes/auth"));
 const express_session_1 = __importDefault(require("express-session"));
+const auth_1 = __importDefault(require("./src/routes/auth"));
+const car_1 = __importDefault(require("./src/routes/car"));
+const auth_2 = require("./src/middleware/auth");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
@@ -31,3 +33,4 @@ app.listen(port, () => {
     console.log(`Example app listening on port ${port}`);
 });
 app.use("/api/auth", auth_1.default);
+app.use("/api/car", auth_2.blockJWT, auth_2.protect, car_1.default);

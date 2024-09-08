@@ -3,8 +3,11 @@ import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
-import authRouter from "./src/routes/auth";
 import session from "express-session";
+import { blockJWT, protect } from "./src/middleware/auth";
+import authRouter from "./src/routes/auth";
+import userRouter from "./src/routes/user";
+import actionsRouter from "./src/routes/actions";
 
 dotenv.config();
 
@@ -35,4 +38,6 @@ app.listen(port, () => {
 });
 
 app.use("/api/auth", authRouter);
+app.use("/api/actions",blockJWT, protect, actionsRouter);
+app.use("/api/user",blockJWT, protect, userRouter);
 
