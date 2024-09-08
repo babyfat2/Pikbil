@@ -56,8 +56,9 @@ model Service {
 
 model Discount {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  name                String
   promoCode           String             @unique
-  decription          String
+  description          String
   discountRent        Int
   minimunRent         Int
   addressDiscount     String[]

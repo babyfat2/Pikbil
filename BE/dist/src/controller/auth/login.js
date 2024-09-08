@@ -17,6 +17,7 @@ const auth_1 = require("../../middleware/auth");
 const prisma_1 = __importDefault(require("../../lib/prisma"));
 function login(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
+        console.log("🚀 ~ file: src/controler/auth/login");
         const { email, password } = req.body;
         const formattedEmail = email.toLowerCase();
         try {

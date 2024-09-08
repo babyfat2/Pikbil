@@ -12,37 +12,37 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = register;
-const auth_1 = require("../../middleware/auth");
+exports.addCar = addCar;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function register(req, res, next) {
+function addCar(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/auth/register");
-        const { email, password, fullname, } = req.body;
-        const formattedEmail = email.toLowerCase();
+        console.log("🚀 ~ file: src/controler/actions/addCar");
+        const idUser = req.user.id;
+        const { name, description, fuel, interiorColor, kilometers, seats, transmission, price, } = req.body;
         try {
-            //check if user already exists
-            const existingUser = yield prisma_1.default.user.findFirst({
-                where: {
-                    email: formattedEmail,
-                },
-            });
-            if (existingUser) {
-                if (existingUser.email === email) {
-                    return res.status(401).json({ msg: "Email already exists" });
-                }
-            }
-            const user = yield prisma_1.default.user.create({
+            const car = yield prisma_1.default.car.create({
                 data: {
-                    email: email,
-                    password: yield (0, auth_1.createHashedPassword)(password),
-                    fullname: fullname,
-                },
+                    name: name,
+                    desciption: description,
+                    fuel: fuel,
+                    interiorColor: interiorColor,
+                    kilometers: kilometers,
+                    seats: seats,
+                    transmission: transmission,
+                    price: price,
+                    owner: {
+                        connect: {
+                            id: idUser,
+                        }
+                    }
+                }
             });
-            if (user) {
-                return res.status(200).json({ msg: "Account created" });
+            if (car) {
+                return res.status(200).json({ car });
             }
-            return res.status(400).json({ msg: "error" });
+            else {
+                return res.status(401).json(" Create car fail.");
+            }
         }
         catch (e) {
             next(e);

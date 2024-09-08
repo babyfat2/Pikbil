@@ -12,37 +12,32 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.register = register;
-const auth_1 = require("../../middleware/auth");
+exports.checkDiscount = checkDiscount;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function register(req, res, next) {
+function checkDiscount(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/auth/register");
-        const { email, password, fullname, } = req.body;
-        const formattedEmail = email.toLowerCase();
+        console.log("🚀 ~ file: src/controler/service/checkDiscount");
+        const { promoCode, price, address } = req.body;
         try {
-            //check if user already exists
-            const existingUser = yield prisma_1.default.user.findFirst({
+            const checkDiscount = yield prisma_1.default.discount.findUnique({
                 where: {
-                    email: formattedEmail,
+                    promoCode: promoCode
                 },
             });
-            if (existingUser) {
-                if (existingUser.email === email) {
-                    return res.status(401).json({ msg: "Email already exists" });
-                }
+            if (!checkDiscount) {
+                return res
+                    .status(200)
+                    .json({
+                    msg: "Discount not found",
+                });
             }
-            const user = yield prisma_1.default.user.create({
-                data: {
-                    email: email,
-                    password: yield (0, auth_1.createHashedPassword)(password),
-                    fullname: fullname,
-                },
-            });
-            if (user) {
-                return res.status(200).json({ msg: "Account created" });
+            if (price >= checkDiscount.minimunRent
+                && checkDiscount.addressDiscount.includes(address)) {
+                return res.status(200).json({ discount: checkDiscount.discountRent, msg: "Discount is correct" });
             }
-            return res.status(400).json({ msg: "error" });
+            else {
+                return res.status(200).json({ msg: "Discount does not apply to this car" });
+            }
         }
         catch (e) {
             next(e);
