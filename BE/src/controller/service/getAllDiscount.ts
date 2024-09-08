@@ -8,9 +8,19 @@ export async function getAllDiscount(
 ) {
   console.log("🚀 ~ file: src/controler/service/getAllDiscount");
   try {
-    const discount = await prisma.discount.findMany({
+    const allDiscount = await prisma.discount.findMany({
+      select: {
+        id: true,
+        name: true,
+        promoCode: true,
+        description: true,
+        discountRent: true,
+        minimunRent: true,
+        imageUri: true,
+        addressDiscount: true,
+      }
     })
-    return discount;
+    return res.status(200).json({allDiscount: allDiscount});
   } catch (e: any) {
     next(e);
   }

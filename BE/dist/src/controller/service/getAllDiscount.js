@@ -18,8 +18,19 @@ function getAllDiscount(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("🚀 ~ file: src/controler/service/getAllDiscount");
         try {
-            const discount = yield prisma_1.default.discount.findMany({});
-            return discount;
+            const allDiscount = yield prisma_1.default.discount.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    promoCode: true,
+                    description: true,
+                    discountRent: true,
+                    minimunRent: true,
+                    imageUri: true,
+                    addressDiscount: true,
+                }
+            });
+            return res.status(200).json({ allDiscount: allDiscount });
         }
         catch (e) {
             next(e);

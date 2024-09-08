@@ -37,11 +37,6 @@ function getAllCar(req, res, next) {
                             address: true,
                         }
                     },
-                    _count: {
-                        select: {
-                            comment: true,
-                        }
-                    }
                 }
             });
             return res.status(200).json({ allCar: car });
