@@ -18,9 +18,11 @@ model User{
   email               String             @unique
   password            String
   fullname            String
+  avatar              String?
   address             String             @default("")
   checkout            Checkout[]
   car                 Car[]
+  comment             Comment[]
 }
 
 model Car {
@@ -33,9 +35,11 @@ model Car {
   seats               String
   transmission        String
   price               Int
+  imageUri            String[]
   ownerId             String             @db.ObjectId
   owner               User               @relation(fields: [ownerId],references: [id])
   checkout            Checkout[]
+  comment             Comment[]
 }
 
 model Protection {
@@ -58,9 +62,10 @@ model Discount {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
   name                String
   promoCode           String             @unique
-  description          String
+  description         String
   discountRent        Int
   minimunRent         Int
+  imageUri            String
   addressDiscount     String[]
   checkout            Checkout[]
 }
@@ -79,4 +84,15 @@ model Checkout {
   service             Service?           @relation(fields: [serviceId], references: [id])
   discountId          String?            @db.ObjectId
   discount            Discount?          @relation(fields: [discountId], references: [id])         
+}
+
+model Comment {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  desciption          String
+  star                Int  
+  carId               String             @db.ObjectId
+  car                 Car                @relation(fields: [carId], references: [id])
+  userId              String             @db.ObjectId
+  user                User               @relation(fields: [userId], references: [id])
+  createdAt           DateTime           @default(now())
 }

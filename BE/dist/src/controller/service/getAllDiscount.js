@@ -12,38 +12,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addCar = addCar;
+exports.getAllDiscount = getAllDiscount;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function addCar(req, res, next) {
+function getAllDiscount(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/actions/addCar");
-        const idUser = req.user.id;
-        const { name, description, fuel, interiorColor, kilometers, seats, transmission, price, imageUri, } = req.body;
+        console.log("🚀 ~ file: src/controler/service/getAllDiscount");
         try {
-            const car = yield prisma_1.default.car.create({
-                data: {
-                    name: name,
-                    desciption: description,
-                    fuel: fuel,
-                    interiorColor: interiorColor,
-                    kilometers: kilometers,
-                    seats: seats,
-                    transmission: transmission,
-                    price: price,
-                    imageUri: imageUri,
-                    owner: {
-                        connect: {
-                            id: idUser,
-                        }
-                    }
-                }
-            });
-            if (car) {
-                return res.status(200).json({ car });
-            }
-            else {
-                return res.status(401).json(" Create car fail.");
-            }
+            const discount = yield prisma_1.default.discount.findMany({});
+            return discount;
         }
         catch (e) {
             next(e);

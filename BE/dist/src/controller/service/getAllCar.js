@@ -12,38 +12,39 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addCar = addCar;
+exports.getAllCar = getAllCar;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function addCar(req, res, next) {
+function getAllCar(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/actions/addCar");
-        const idUser = req.user.id;
-        const { name, description, fuel, interiorColor, kilometers, seats, transmission, price, imageUri, } = req.body;
+        console.log("🚀 ~ file: src/controler/service/getAllCar");
         try {
-            const car = yield prisma_1.default.car.create({
-                data: {
-                    name: name,
-                    desciption: description,
-                    fuel: fuel,
-                    interiorColor: interiorColor,
-                    kilometers: kilometers,
-                    seats: seats,
-                    transmission: transmission,
-                    price: price,
-                    imageUri: imageUri,
+            const car = yield prisma_1.default.car.findMany({
+                select: {
+                    id: true,
+                    name: true,
+                    desciption: true,
+                    fuel: true,
+                    interiorColor: true,
+                    kilometers: true,
+                    seats: true,
+                    transmission: true,
+                    price: true,
+                    imageUri: true,
                     owner: {
-                        connect: {
-                            id: idUser,
+                        select: {
+                            fullname: true,
+                            avatar: true,
+                            address: true,
+                        }
+                    },
+                    _count: {
+                        select: {
+                            comment: true,
                         }
                     }
                 }
             });
-            if (car) {
-                return res.status(200).json({ car });
-            }
-            else {
-                return res.status(401).json(" Create car fail.");
-            }
+            return res.status(200).json({ allCar: car });
         }
         catch (e) {
             next(e);

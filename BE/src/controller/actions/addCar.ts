@@ -16,6 +16,7 @@ export async function addCar(
         seats,
         transmission,
         price,
+        imageUri,
     }: {
         name: string,
         description: string,
@@ -25,6 +26,7 @@ export async function addCar(
         seats: string,
         transmission: string,
         price: number,
+        imageUri: string[],
     } = req.body;
     try {
         const car = await prisma.car.create({
@@ -37,6 +39,7 @@ export async function addCar(
                 seats: seats,
                 transmission: transmission,
                 price: price,
+                imageUri: imageUri,
                 owner: {
                     connect: {
                         id: idUser,
