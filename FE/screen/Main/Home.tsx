@@ -1,32 +1,30 @@
 import {
     View,
     Dimensions,
+    Text,
     StyleSheet,
 } from "react-native";
 import React from "react";;
-import { IColor } from "style/color";
 import useStyles from "style/useStyles";
+import { LoginScreen } from "types/navigation";
+import { IColor } from "style/color";
 import { useAppSelector } from "redux/hooks.ts/hooks";
-import Introduce from "./Introduce/Introduce";
-import Auth from "navigation/auth";
+
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
-function Navigation() {
+function Home() {
     const { colors, styles } = useStyles(createStyles);
-    const routeApp = useAppSelector((state) => (state.routeApp));
-    if (routeApp.isFirst) {
-        return (
-            <Introduce />
-        )
-    } else {
-        return (
-        <Auth />
-        )
-    }
-
+    const user = useAppSelector((state) => (state.user.data));
+    return (
+        <View style={{
+            flex: 1,
+        }}
+        >
+            <Text>Home</Text>
+        </View>
+    );
 }
-
 const createStyles = (colors: IColor) =>
     StyleSheet.create({
         container: {
@@ -37,5 +35,4 @@ const createStyles = (colors: IColor) =>
             padding: width / 10,
         },
     });
-
-export default Navigation;
+export default Home;

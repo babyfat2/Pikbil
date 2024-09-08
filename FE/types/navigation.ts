@@ -13,3 +13,10 @@ export type RegisterScreen = NativeStackScreenProps<
   AuthRootStackParamList,
   "Register"
 >;
+
+export type BottomRootStackParamList = {
+  Home: undefined;
+  Trip: undefined;
+  Messange: undefined;
+  Profile: undefined;
+};
