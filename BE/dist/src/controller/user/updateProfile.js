@@ -18,7 +18,7 @@ function updateProfile(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("🚀 ~ file: src/controler/user/updateProfile");
         const id = req.user.id;
-        const { fullname, address } = req.body;
+        const { fullname, } = req.body;
         try {
             const user = yield prisma_1.default.user.update({
                 where: {
@@ -26,7 +26,6 @@ function updateProfile(req, res, next) {
                 },
                 data: {
                     fullname: fullname,
-                    address: address,
                 }
             });
             if (user) {

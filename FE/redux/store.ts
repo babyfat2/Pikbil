@@ -13,6 +13,8 @@ import routeApp from "./slice/routeApp";
 import darkMode from "./slice/darkMode";
 import { authApi } from "./api/auth";
 import user from "./slice/user";
+import { serviceApi } from "./api/service";
+import { actionApi } from "./api/action";
 
 
 const persistConfig = {
@@ -25,6 +27,8 @@ const persistConfig = {
     darkMode,
     user,
     [authApi.reducerPath]: authApi.reducer,
+    [serviceApi.reducerPath]: serviceApi.reducer,
+    [actionApi.reducerPath]: actionApi.reducer,
   });
   const persistedReducer = persistReducer(persistConfig, reducer);
   export const store = configureStore({
@@ -38,6 +42,8 @@ const persistConfig = {
         },
       })
       .concat(authApi.middleware)
+      .concat(serviceApi.middleware)
+      .concat(actionApi.middleware)
   });
   
   export type RootState = ReturnType<typeof store.getState>;

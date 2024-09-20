@@ -8,7 +8,8 @@ import useStyles from "style/useStyles";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import Auth from "navigation/auth";
 import Introduce from "screen/Introduce/Introduce";
-import Main from "navigation/main";
+import BottomMain from "navigation/mainBottom";
+import MainStack from "navigation/mainStack";
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
@@ -25,7 +26,7 @@ function Navigation() {
         )
     } else {
         return (
-            <Main />
+            <MainStack />
         )
     }
 

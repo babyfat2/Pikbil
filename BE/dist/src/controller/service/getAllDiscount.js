@@ -30,7 +30,7 @@ function getAllDiscount(req, res, next) {
                     addressDiscount: true,
                 }
             });
-            return res.status(200).json({ allDiscount: allDiscount });
+            return res.status(200).json(allDiscount);
         }
         catch (e) {
             next(e);

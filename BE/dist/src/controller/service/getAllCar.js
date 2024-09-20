@@ -22,7 +22,7 @@ function getAllCar(req, res, next) {
                 select: {
                     id: true,
                     name: true,
-                    desciption: true,
+                    description: true,
                     fuel: true,
                     interiorColor: true,
                     kilometers: true,
@@ -30,16 +30,16 @@ function getAllCar(req, res, next) {
                     transmission: true,
                     price: true,
                     imageUri: true,
+                    address: true,
                     owner: {
                         select: {
                             fullname: true,
                             avatar: true,
-                            address: true,
                         }
                     },
                 }
             });
-            return res.status(200).json({ allCar: car });
+            return res.status(200).json(car);
         }
         catch (e) {
             next(e);

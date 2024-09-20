@@ -8,7 +8,7 @@ export async function updateProfile(
 ) {
   console.log("🚀 ~ file: src/controler/user/updateProfile");
   const id = req.user.id;
-  const { fullname, address }: { fullname: string, address: string } = req.body;
+  const { fullname, }: { fullname: string, } = req.body;
   try {
     const user = await prisma.user.update({
         where: {
@@ -16,7 +16,6 @@ export async function updateProfile(
         },
         data: {
             fullname: fullname,
-            address: address,
         }
     })
     if (user) {

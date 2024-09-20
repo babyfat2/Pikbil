@@ -18,12 +18,12 @@ function addCar(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("🚀 ~ file: src/controler/actions/addCar");
         const idUser = req.user.id;
-        const { name, description, fuel, interiorColor, kilometers, seats, transmission, price, imageUri, } = req.body;
+        const { name, description, fuel, interiorColor, kilometers, seats, transmission, price, address, imageUri, } = req.body;
         try {
             const car = yield prisma_1.default.car.create({
                 data: {
                     name: name,
-                    desciption: description,
+                    description: description,
                     fuel: fuel,
                     interiorColor: interiorColor,
                     kilometers: kilometers,
@@ -31,6 +31,7 @@ function addCar(req, res, next) {
                     transmission: transmission,
                     price: price,
                     imageUri: imageUri,
+                    address: address,
                     owner: {
                         connect: {
                             id: idUser,

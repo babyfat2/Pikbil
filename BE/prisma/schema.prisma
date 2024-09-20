@@ -19,7 +19,6 @@ model User{
   password            String
   fullname            String
   avatar              String?
-  address             String             @default("")
   checkout            Checkout[]
   car                 Car[]
   comment             Comment[]
@@ -28,13 +27,14 @@ model User{
 model Car {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
   name                String
-  desciption          String
+  description         String
   fuel                String
   interiorColor       String
   kilometers          String
   seats               String
   transmission        String
-  price               Int
+  price               Float
+  address             String
   imageUri            String[]
   ownerId             String             @db.ObjectId
   owner               User               @relation(fields: [ownerId],references: [id])
@@ -45,15 +45,15 @@ model Car {
 model Protection {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
   name                String
-  price               Int
-  decription          String
+  price               Float
+  description          String
   checkout            Checkout[]
 }
 
 model Service {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
   name                String
-  price               Int
+  price               Float
   description         String
   checkout            Checkout[]
 }
@@ -63,8 +63,8 @@ model Discount {
   name                String
   promoCode           String             @unique
   description         String
-  discountRent        Int
-  minimunRent         Int
+  discountRent        Float
+  minimunRent         Float
   imageUri            String
   addressDiscount     String[]
   checkout            Checkout[]
@@ -72,8 +72,10 @@ model Discount {
 
 model Checkout {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
-  VAT                 String             @default("10%")
   status              String
+  price               Float
+  dateRent            DateTime
+  createdAt           DateTime           @default(now())
   carId               String             @db.ObjectId
   car                 Car                @relation(fields: [carId], references: [id])
   renterId            String             @db.ObjectId

@@ -20,7 +20,7 @@ export async function getAllDiscount(
         addressDiscount: true,
       }
     })
-    return res.status(200).json({allDiscount: allDiscount});
+    return res.status(200).json(allDiscount);
   } catch (e: any) {
     next(e);
   }

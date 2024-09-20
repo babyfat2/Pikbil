@@ -12,7 +12,7 @@ export async function getAllCar(
       select: {
         id: true,
         name: true,
-        desciption: true,
+        description: true,
         fuel: true,
         interiorColor: true,
         kilometers: true,
@@ -20,16 +20,16 @@ export async function getAllCar(
         transmission: true,
         price: true,
         imageUri: true,
+        address: true,
         owner: {
           select: {
             fullname: true,
             avatar: true,
-            address: true,
           }
         },
       }
     })
-    return res.status(200).json({ allCar: car });
+    return res.status(200).json(car);
   } catch (e: any) {
     next(e);
   }

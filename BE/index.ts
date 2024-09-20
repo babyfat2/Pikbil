@@ -9,6 +9,40 @@ import authRouter from "./src/routes/auth";
 import userRouter from "./src/routes/user";
 import actionsRouter from "./src/routes/actions";
 import serviceRouter from "./src/routes/service";
+import RedisStore from "connect-redis";
+import { createClient } from "redis";
+import cron from "node-cron";
+import { updateDataInDB } from "./src/auto";
+
+let redisClient = createClient({
+  password: process.env.REDIS_PASSWORD,
+  socket: {
+    host: process.env.REDIS_HOST,
+    port: Number(process.env.REDIS_PORT),
+  },
+});
+
+redisClient.connect().catch(console.error);
+redisClient.on("ready", () => {
+  console.log("Client is ready");
+  // redisClient.flushDb().then((e) => {
+  //   console.log("flush", e);
+  // });
+});
+
+redisClient.on("error", (err) => {
+  console.error("Error occurred:", err);
+});
+
+let redisStore = new RedisStore({
+  client: redisClient,
+  prefix: "Travel:",
+});
+
+cron.schedule('* * * * *', async () => {
+    console.log('running a task every minute');
+    await updateDataInDB();
+  });
 
 dotenv.config();
 
@@ -23,10 +57,12 @@ app.use(express.urlencoded({ extended: true }));
 export const sessionMiddleWare = session({
   secret: process.env.SECRET as string,
   resave: false,
+  store: redisStore,
   saveUninitialized: false,
 });
 app.set("trust proxy", 1);
 app.use(sessionMiddleWare);
+
 
 app.get('/', (req: Request, res: Response) => {
   res.send('Hello World Faaaaaaaaaaar!')
