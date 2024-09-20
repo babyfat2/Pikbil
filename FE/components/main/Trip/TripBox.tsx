@@ -10,6 +10,8 @@ import React, { useState } from "react";
 import useStyles from "style/useStyles";
 import { IColor } from "style/color";
 import { ITrip } from "types/api";
+import { useNavigation } from "@react-navigation/native";
+import { HomeNavigationProp, HomeProp } from "types/navigation";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -19,6 +21,7 @@ function TripBox({
     tripInfor: ITrip;
 }) {
     const { colors, styles } = useStyles(createStyles);
+    const navigation = useNavigation<HomeProp>();
     const date = new Date(tripInfor.createdAt);
     const dateRent = new Date(tripInfor.dateRent);
     const dateString = new String(date.toLocaleString().slice(0, 9) + " - " + dateRent.toLocaleString().slice(0, 10));
@@ -33,6 +36,7 @@ function TripBox({
             <View style={styles.buttonView}>
                 <TouchableOpacity
                     style={styles.buttonReview}
+                    onPress={() => navigation.navigate("Review", {car: tripInfor.car})}
                 >
                     {tripInfor.status === "Ongoing" ?
                         <Text style={styles.textReview}>Contact owner</Text>

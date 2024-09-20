@@ -40,6 +40,9 @@ export type RootStackParamList = {
     price: number,
     setPrice: React.Dispatch<React.SetStateAction<number>>,
   };
+  Review: {
+    car: ICar,
+  }
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -58,3 +61,5 @@ export type DiscountDetailNavigationProp = NativeStackScreenProps<RootStackParam
 export type CheckoutNavigationProp = NativeStackScreenProps<RootStackParamList, "Checkout">;
 
 export type ProtectionPlanNavigationProp = NativeStackScreenProps<RootStackParamList, "ProtectionPlan">;
+
+export type ReviewNavigationProp = NativeStackScreenProps<RootStackParamList, "Review">;

@@ -18,13 +18,13 @@ export const actionApi = createApi({
   tagTypes: ["action"],
   endpoints: (builder) => ({
     addCheckout: builder.mutation<
-    {},
-    {
-      carId: string,
-      price: number,
-      status: string,
-      dateRent: Date,
-    }
+      {},
+      {
+        carId: string,
+        price: number,
+        status: string,
+        dateRent: Date,
+      }
     >({
       query: (payload) => ({
         url: "/addCheckout",
@@ -35,14 +35,31 @@ export const actionApi = createApi({
         },
       }),
     }),
+    addReviewCar: builder.mutation<
+      {},
+      {
+        star: number,
+        carId: string,
+        description: string,
+      }
+    >({
+      query: (payload) => ({
+        url: "/addReviewCar",
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+    }),
     getMyTrip: builder.query<
-            ITrip[],
-            null
-        >({
-            query: () => `/getMyTrip`,
-            extraOptions: {maxRetries: 2}
-        }),
+      ITrip[],
+      null
+    >({
+      query: () => `/getMyTrip`,
+      extraOptions: { maxRetries: 2 }
+    }),
   }),
 });
 
-export const { useAddCheckoutMutation, useGetMyTripQuery } = actionApi;
+export const { useAddCheckoutMutation, useAddReviewCarMutation ,useGetMyTripQuery } = actionApi;

@@ -11,21 +11,35 @@ import React, { useState } from "react";;
 import useStyles from "style/useStyles";
 import { IColor } from "style/color";
 import ChooseStar from "components/main/Review/ChooseStar";
+import { ReviewNavigationProp } from "types/navigation";
+import { useAddReviewCarMutation } from "redux/api/action";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
-function Review() {
+function Review({navigation, route}: ReviewNavigationProp) {
     const { colors, styles } = useStyles(createStyles);
     const [star, setStar] = useState<number>(1);
+    const car = route.params.car;
     const [number, onChangeNumber] = useState<string>("");
+    const [sendReview] = useAddReviewCarMutation();
+    const buttonSend = () => {
+        sendReview({star: star, description: number, carId: car.id})
+        .unwrap()
+        .then((e) => {
+            console.log("secess " + e);
+        })
+        .catch((e) => {
+            console.log(e);
+        })
+    }
     return (
         <View style={styles.container}>
             <Text style={styles.textMyTrip}>Review</Text>
             <View style={styles.boxInforCar}>
-                <Image style={styles.imageCar} source={require("../../image/welcome1.png")} />
-                <Text style={styles.nameCar}>BMW Car S Class</Text>
-                <Text style={styles.addressCar}>New york</Text>
+                <Image style={styles.imageCar} source={require("../../../image/welcome1.png")} />
+                <Text style={styles.nameCar}>{car.name}</Text>
+                <Text style={styles.addressCar}>{car.address}</Text>
             </View>
             <ChooseStar star={star} setStar={setStar} />
             <Text style={styles.writeReview}>Write review (optional)</Text>
@@ -38,6 +52,7 @@ function Review() {
             />
             <TouchableOpacity
             style={styles.buttonSend}
+            onPress={buttonSend}
             >
                 <Text style={styles.textSend}>Send</Text>
             </TouchableOpacity>

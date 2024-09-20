@@ -8,6 +8,7 @@ import BottomMain from "./mainBottom";
 import DiscountDetail from "screen/Main/DiscountDetail/DiscountDetail";
 import Checkout from "screen/Main/Checkout/Checkout";
 import ProtectionPlan from "screen/Main/Checkout/ProtectionPlan";
+import Review from "screen/Main/Review/Review";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -22,6 +23,7 @@ export default function MainStack() {
       <Stack.Screen name="DiscountDetail" component={DiscountDetail} />
       <Stack.Screen name="Checkout" component={Checkout} />
       <Stack.Screen name="ProtectionPlan" component={ProtectionPlan} />
+      <Stack.Screen name="Review" component={Review} />
     </Stack.Navigator>
   );
 }
