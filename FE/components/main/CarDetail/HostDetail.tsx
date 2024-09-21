@@ -17,17 +17,17 @@ const HostDetail = ({ owner }: { owner: IUserData }) => {
                 fontFamily: 'Montserrat-Bold',
                 fontSize: 18,
                 color: colors.textPrimary,
-                marginBottom: 10,
+                marginBottom: 15,
             }}>
-                Host Detail
+                HOST DETAIL
             </Text>
             <View
                 style={{ flexDirection: 'row', }}
             >
                 {!owner.avatar ?
-                    <Image style={{ width: 40, height: 40, borderRadius: 2, }} source={require('../../../assets/car.png')} />
+                    <Image style={{ width: 40, height: 40, borderRadius: 20, borderWidth: 0.5, borderColor: colors.primary}} source={require('../../../assets/avatar.png')} />
                     :
-                    <Image style={{ width: 40, height: 40, borderRadius: 2, }} source={{ uri: owner.avatar }} />
+                    <Image style={{ width: 40, height: 40, borderRadius: 20, }} source={{ uri: owner.avatar }} />
                 }
                 <View
                     style={{

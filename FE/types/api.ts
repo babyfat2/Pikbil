@@ -43,8 +43,8 @@ export interface IComment {
     id: string;
     description: string;
     star: number;
-    createAt: Date;
-    userComment: IUserData;
+    createdAt: Date;
+    user: IUserData;
     carId: string;
 }
 

@@ -28,10 +28,11 @@ function Review({navigation, route}: ReviewNavigationProp) {
         .unwrap()
         .then((e) => {
             console.log("secess " + e);
+            navigation.popToTop();
         })
         .catch((e) => {
             console.log(e);
-        })
+        });
     }
     return (
         <View style={styles.container}>

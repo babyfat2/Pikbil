@@ -61,7 +61,7 @@ export default function CarDecription (
         >
             <Text style={{
                 fontFamily: "Montserrat-Bold",
-                fontSize: 18,
+                fontSize: 24,
                 color: colors.textPrimary,
                 marginBottom: 20,
             }}>
@@ -81,7 +81,7 @@ export default function CarDecription (
                 marginTop: 20,
                 marginBottom: 15,
             }}>
-                Car Detail
+                CAR DETAIL
             </Text>
             <RenderInfor name="Fuel"  name2={fuel}/>
             <RenderInfor name="InteriorColor"  name2={interiorColor}/>

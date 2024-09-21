@@ -9,6 +9,7 @@ import DiscountDetail from "screen/Main/DiscountDetail/DiscountDetail";
 import Checkout from "screen/Main/Checkout/Checkout";
 import ProtectionPlan from "screen/Main/Checkout/ProtectionPlan";
 import Review from "screen/Main/Review/Review";
+import BookingSuccess from "screen/Main/Checkout/BookingSuccess";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -24,6 +25,7 @@ export default function MainStack() {
       <Stack.Screen name="Checkout" component={Checkout} />
       <Stack.Screen name="ProtectionPlan" component={ProtectionPlan} />
       <Stack.Screen name="Review" component={Review} />
+      <Stack.Screen name="BookingSuccess" component={BookingSuccess} />
     </Stack.Navigator>
   );
 }

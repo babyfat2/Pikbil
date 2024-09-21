@@ -41,10 +41,11 @@ function Checkout({ navigation, route }: CheckoutNavigationProp) {
         .unwrap()
         .then((e) => {
             console.log(e);
+            navigation.navigate("BookingSuccess");
         })
         .catch((e) => {
-            
-        })
+            console.log(e);
+        });
     }
     return (
         <View style={styles.container}>

@@ -90,7 +90,7 @@ model Checkout {
 
 model Comment {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
-  desciption          String
+  description          String
   star                Int  
   carId               String             @db.ObjectId
   car                 Car                @relation(fields: [carId], references: [id])

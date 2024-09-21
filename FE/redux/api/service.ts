@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICar, IDiscount, IProtection } from "../../types/api";
+import { ICar, IComment, IDiscount, IProtection } from "../../types/api";
 
 export const serviceApi = createApi({
     reducerPath: "serviceApi",
@@ -29,7 +29,17 @@ export const serviceApi = createApi({
             query: () => `/getAllProtectionPlans`,
             extraOptions: { maxRetries: 2 }
         }),
+        getCommentByCar: builder.query<
+            IComment[],
+            string
+        >({
+            query: (carId) => `/getCommentByCar?carId=${carId}`,
+            extraOptions: { maxRetries: 2 }
+        }),
     }),
 });
 
-export const { useGetAllCarQuery, useGetAllDiscountQuery, useGetAllProtectionPlansQuery } = serviceApi;
+export const { useGetAllCarQuery, 
+    useGetAllDiscountQuery, 
+    useGetAllProtectionPlansQuery,
+useGetCommentByCarQuery, } = serviceApi;

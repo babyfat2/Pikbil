@@ -12,23 +12,33 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.addReviewCar = addReviewCar;
+exports.getCommentByCar = getCommentByCar;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function addReviewCar(req, res, next) {
+function getCommentByCar(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/user/addReviewCar");
-        const userId = req.user.id;
-        const { description, star, carId } = req.body;
+        console.log("🚀 ~ file: src/controler/service/getCommentByCar");
+        const carId = req.query.carId;
         try {
-            const review = yield prisma_1.default.comment.create({
-                data: {
-                    userId: userId,
-                    description: description,
-                    star: star,
-                    carId: carId
-                }
+            const comment = yield prisma_1.default.comment.findMany({
+                where: {
+                    carId: carId,
+                },
+                select: {
+                    id: true,
+                    description: true,
+                    user: {
+                        select: {
+                            fullname: true,
+                            email: true,
+                            avatar: true,
+                        }
+                    },
+                    star: true,
+                    createdAt: true,
+                },
+                take: 2,
             });
-            return res.status(200).json({ "msg": "add Reiview success" });
+            return res.status(200).json(comment);
         }
         catch (e) {
             next(e);

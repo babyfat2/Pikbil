@@ -24,7 +24,7 @@ function TripBox({
     const navigation = useNavigation<HomeProp>();
     const date = new Date(tripInfor.createdAt);
     const dateRent = new Date(tripInfor.dateRent);
-    const dateString = new String(date.toLocaleString().slice(0, 9) + " - " + dateRent.toLocaleString().slice(0, 10));
+    const dateString = new String(date.toLocaleString().slice(0, 9) + " - " + dateRent.toLocaleString().slice(0, 9));
     return (
         <View style={styles.container}>
             <Image style={styles.imageCar} source={require("../../../image/welcome1.png")} />

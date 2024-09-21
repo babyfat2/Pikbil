@@ -42,7 +42,8 @@ export type RootStackParamList = {
   };
   Review: {
     car: ICar,
-  }
+  };
+  BookingSuccess: undefined;
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -63,3 +64,5 @@ export type CheckoutNavigationProp = NativeStackScreenProps<RootStackParamList, 
 export type ProtectionPlanNavigationProp = NativeStackScreenProps<RootStackParamList, "ProtectionPlan">;
 
 export type ReviewNavigationProp = NativeStackScreenProps<RootStackParamList, "Review">;
+
+export type BookingSuccessNavigationProp = NativeStackScreenProps<RootStackParamList, "BookingSuccess">;

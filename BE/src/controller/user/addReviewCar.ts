@@ -14,11 +14,12 @@ export async function addReviewCar(
     const review = await prisma.comment.create({
         data: {
             userId: userId,
-            desciption: description,
+            description: description,
             star: star,
             carId: carId
         }
     })
+    return res.status(200).json({ "msg": "add Reiview success"});
   } catch (e: any) {
     next(e);
   }
