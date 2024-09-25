@@ -33,7 +33,7 @@ function login(req, res, next) {
                 },
             });
             if (user) {
-                const { email, fullname, } = user;
+                const { id, email, fullname, } = user;
                 if (yield (0, auth_1.compareHashedPassword)(password, user.password)) {
                     const token = (0, auth_1.createJWT)({
                         email,
@@ -43,6 +43,7 @@ function login(req, res, next) {
                     return res.status(200).json({
                         token,
                         data: {
+                            id,
                             email,
                             fullname,
                         },

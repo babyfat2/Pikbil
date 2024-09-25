@@ -1,4 +1,3 @@
-
 import dotenv from "dotenv";
 import express, { Express, Request, Response } from "express";
 import cors from "cors";
@@ -9,10 +8,13 @@ import authRouter from "./src/routes/auth";
 import userRouter from "./src/routes/user";
 import actionsRouter from "./src/routes/actions";
 import serviceRouter from "./src/routes/service";
+import chatRouter from "./src/routes/chat";
 import RedisStore from "connect-redis";
 import { createClient } from "redis";
 import cron from "node-cron";
 import { updateDataInDB } from "./src/auto";
+import http from 'http';
+import configureSocket from "./src/lib/socket";
 
 let redisClient = createClient({
   password: process.env.REDIS_PASSWORD,
@@ -40,9 +42,9 @@ let redisStore = new RedisStore({
 });
 
 cron.schedule('* * * * *', async () => {
-    console.log('running a task every minute');
-    await updateDataInDB();
-  });
+  console.log('running a task every minute');
+  await updateDataInDB();
+});
 
 dotenv.config();
 
@@ -70,11 +72,17 @@ app.get('/', (req: Request, res: Response) => {
 
 const port = process.env.PORT || 8000;
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+const server = http.createServer(app);
+
+// Thiết lập socket
+configureSocket(server);
+
+server.listen(port, () => {
+  console.log('Server is running on port 3000');
 });
 
 app.use("/api/auth", authRouter);
-app.use("/api/actions",blockJWT, protect, actionsRouter);
-app.use("/api/user",blockJWT, protect, userRouter);
+app.use("/api/actions", blockJWT, protect, actionsRouter);
+app.use("/api/user", blockJWT, protect, userRouter);
 app.use("/api/service", serviceRouter);
+app.use("/api/chat",blockJWT, protect,  chatRouter);

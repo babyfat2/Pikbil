@@ -61,13 +61,7 @@ export const protect = (req: any, res: Response, next: NextFunction) => {
 
 export const blockJWT = async (req: any, res: Response, next: NextFunction) => {
   const bearer = req.headers.authorization;
-  console.log(bearer);
-  console.log(req.session);
   const tokenFromSession = req.session.token;
-  console.log(
-    "🚀 ~ file: index.ts:68 ~ blockJWT ~ tokenFromSession:",
-    tokenFromSession
-  );
   if (!tokenFromSession) {
     return res.status(401).json({ msg: "Session Expired" });
   }

@@ -16,13 +16,14 @@ import DiscountBox from "components/main/Home/discountBox";
 import { StatusBar } from "expo-status-bar";
 import HeaderHome from "components/main/Home/header";
 import CarBox from "components/main/Home/carBox";
+import CarBoxSkeleton from "components/main/Home/carBoxSkeleton";
+import DiscountBoxSkeleton from "components/main/Home/discountBoxSkeletion";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 function Home() {
     const { colors, styles } = useStyles(createStyles);
-    const user = useAppSelector((state) => (state.user.data));
     const allCar = useGetAllCarQuery(null);
     const allDiscount = useGetAllDiscountQuery(null);
     return (
@@ -31,24 +32,31 @@ function Home() {
         >
             <StatusBar animated={false} backgroundColor="transparent" />
             <HeaderHome />
+            { allDiscount.isLoading ?
+            <DiscountBoxSkeleton/>
+            :
             <FlatList
             showsHorizontalScrollIndicator={false}
                 horizontal={true}
                 data={allDiscount.currentData}
                 renderItem={(item) => <DiscountBox discount={item.item} />}
-            />
+            />}
             <View style={styles.viewTopVehicle}>
                 <Text style={styles.textTopVehicle}>Top vehicle</Text>
                 <TouchableOpacity>
                     <Text style={styles.textSeeAll}>See all</Text>
                 </TouchableOpacity>
             </View>
+            {allCar.isLoading ? 
+            <CarBoxSkeleton />
+            :
             <FlatList
-            showsHorizontalScrollIndicator={false}
+                showsHorizontalScrollIndicator={false}
                 horizontal={true}
-                data={allCar.currentData}
+                data={allCar.data}
                 renderItem={(item) => <CarBox car={item.item} />}
             />
+}
         </Animated.View>
     );
 }

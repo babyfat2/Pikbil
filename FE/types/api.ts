@@ -62,3 +62,19 @@ export interface ITrip {
     dateRent: Date;
     createdAt: Date;
 }
+
+
+export interface IBoxChat {
+    roomId: string;
+    arrayMessage: Array<IMessage>;
+}
+
+export interface IMessage {
+    id: string;
+    message: string | null;
+    imageUri: string | null;
+    createdAt: Date;
+    roomId: string;
+    sender: IUserData;
+    receiver: IUserData;
+}

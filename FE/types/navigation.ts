@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { ICar, IDiscount } from "./api";
+import { IBoxChat, ICar, IDiscount, IUserData } from "./api";
 import { NavigationProp } from "@react-navigation/native";
 
 export type AuthRootStackParamList = {
@@ -44,6 +44,11 @@ export type RootStackParamList = {
     car: ICar,
   };
   BookingSuccess: undefined;
+  Chat: {
+    boxChat: IBoxChat;
+    receiverId: IUserData;
+  };
+  Setting: undefined;
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -66,3 +71,7 @@ export type ProtectionPlanNavigationProp = NativeStackScreenProps<RootStackParam
 export type ReviewNavigationProp = NativeStackScreenProps<RootStackParamList, "Review">;
 
 export type BookingSuccessNavigationProp = NativeStackScreenProps<RootStackParamList, "BookingSuccess">;
+
+export type ChatNavigationProp = NativeStackScreenProps<RootStackParamList, "Chat">;
+
+export type SettingNavigationProp = NativeStackScreenProps<RootStackParamList, "Setting">;

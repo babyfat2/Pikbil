@@ -24,6 +24,7 @@ export async function login(
 
     if (user) {
       const {
+        id,
         email,
         fullname,
       } = user;
@@ -36,6 +37,7 @@ export async function login(
         return res.status(200).json({
           token,
           data: {
+            id,
             email,
             fullname,
           },

@@ -23,10 +23,13 @@ const auth_2 = __importDefault(require("./src/routes/auth"));
 const user_1 = __importDefault(require("./src/routes/user"));
 const actions_1 = __importDefault(require("./src/routes/actions"));
 const service_1 = __importDefault(require("./src/routes/service"));
+const chat_1 = __importDefault(require("./src/routes/chat"));
 const connect_redis_1 = __importDefault(require("connect-redis"));
 const redis_1 = require("redis");
 const node_cron_1 = __importDefault(require("node-cron"));
 const auto_1 = require("./src/auto");
+const http_1 = __importDefault(require("http"));
+const socket_1 = __importDefault(require("./src/lib/socket"));
 let redisClient = (0, redis_1.createClient)({
     password: process.env.REDIS_PASSWORD,
     socket: {
@@ -70,10 +73,14 @@ app.get('/', (req, res) => {
     res.send('Hello World Faaaaaaaaaaar!');
 });
 const port = process.env.PORT || 8000;
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+const server = http_1.default.createServer(app);
+// Thiết lập socket
+(0, socket_1.default)(server);
+server.listen(port, () => {
+    console.log('Server is running on port 3000');
 });
 app.use("/api/auth", auth_2.default);
 app.use("/api/actions", auth_1.blockJWT, auth_1.protect, actions_1.default);
 app.use("/api/user", auth_1.blockJWT, auth_1.protect, user_1.default);
 app.use("/api/service", service_1.default);
+app.use("/api/chat", auth_1.blockJWT, auth_1.protect, chat_1.default);

@@ -7,31 +7,30 @@ import {
 } from "react-native";
 import React from "react";;
 import useStyles from "style/useStyles";
-import { LoginScreen } from "types/navigation";
 import { IColor } from "style/color";
 import AvatarBox from "components/main/Profile/AvatarBox";
 import ChooseBox from "components/main/Profile/ChooseBox";
 import { useDispatch } from "react-redux";
-import { openAuth } from "redux/slice/routeApp";
+import useSecondSocket from "socket/SecondSocket";
+import SettingBox from "components/main/Profile/SettingBox";
+import { useAppSelector } from "redux/hooks.ts/hooks";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 function Profile() {
     const { colors, styles } = useStyles(createStyles);
-    const dispath = useDispatch();
-    const login = () =>{
-        dispath(openAuth());
-    }
+    const user = useAppSelector((status) => status.user.data)
     return (
         <View style={styles.container}>
             <AvatarBox />
             <ChooseBox />
             <ChooseBox />
             <ChooseBox />
-            <TouchableOpacity 
-            style={styles.buttonLogin}
-            onPress={login}>
+            <SettingBox />
+            <TouchableOpacity
+                style={styles.buttonLogin}
+                >
                 <Text style={styles.textLogout}>Logout</Text>
             </TouchableOpacity>
         </View>

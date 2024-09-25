@@ -11,6 +11,7 @@ import { IColor } from "style/color";
 import TableChoose from "components/main/Trip/TableChoose";
 import TripBox from "components/main/Trip/TripBox";
 import { useGetMyTripQuery } from "redux/api/action";
+import TripBoxSkeleton from "components/main/Trip/TripBoxSkeleton";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -19,20 +20,27 @@ function Trip() {
     const { colors, styles } = useStyles(createStyles);
     const [status, setStatus] = useState<string>("All");
     const trips = useGetMyTripQuery(null);
-    console.log(trips.currentData);
     return (
         <View style={styles.container}>
             <Text style={styles.textMyTrip}>My Trip</Text>
             <TableChoose status={status} setStatus={setStatus} />
-            <FlatList
-                data={trips.currentData}
-                renderItem={(item) => (
-                    ((item.item.status === status || status === "All") ? (
-                        <TripBox tripInfor={item.item} />) : (
-                        <></>
-                    )))
-                }
-            />
+            {trips.isLoading ? (
+                <>
+                    <TripBoxSkeleton />
+                    <TripBoxSkeleton />
+                    <TripBoxSkeleton />
+                </>
+            ) : (
+                <FlatList
+                    data={trips.currentData}
+                    renderItem={(item) => (
+                        ((item.item.status === status || status === "All") ? (
+                            <TripBox tripInfor={item.item} />) : (
+                            <></>
+                        )))
+                    }
+                />
+            )}
         </View>
     );
 }

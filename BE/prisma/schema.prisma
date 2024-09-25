@@ -19,9 +19,12 @@ model User{
   password            String
   fullname            String
   avatar              String?
+  socket              String?
   checkout            Checkout[]
   car                 Car[]
   comment             Comment[]
+  sender              Chat[]             @relation("sender")
+  receiver            Chat[]             @relation("receiver")
 }
 
 model Car {
@@ -90,11 +93,29 @@ model Checkout {
 
 model Comment {
   id                  String             @id @default(auto()) @map("_id") @db.ObjectId
-  description          String
+  description         String
   star                Int  
   carId               String             @db.ObjectId
   car                 Car                @relation(fields: [carId], references: [id])
   userId              String             @db.ObjectId
   user                User               @relation(fields: [userId], references: [id])
   createdAt           DateTime           @default(now())
+}
+
+model Chat {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  message             String?
+  imageUri            String?
+  createdAt           DateTime           @default(now())
+  roomId              String             @db.ObjectId
+  room                Room               @relation(fields: [roomId], references: id)
+  senderId            String             @db.ObjectId
+  sender              User               @relation("sender",fields: [senderId], references: [id])
+  receiverId          String             @db.ObjectId
+  receiver            User               @relation("receiver",fields: [receiverId], references: [id])
+}
+
+model Room {
+  id                  String             @id @default(auto()) @map("_id") @db.ObjectId
+  Chat                Chat[]
 }

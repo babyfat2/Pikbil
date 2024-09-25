@@ -65,8 +65,10 @@ const createStyles = (colors: IColor) =>
     StyleSheet.create({
         container: {
             marginBottom: 25,
+            marginRight: 5,
         },
         imageCar: {
+            width: width * 13/15 -1,
             height: height * 0.20,
             borderRadius: 20,
             marginBottom: 10,
@@ -78,7 +80,7 @@ const createStyles = (colors: IColor) =>
             padding: 5,
             paddingLeft: 10,
             paddingRight: 10,
-            backgroundColor: "#FFF",
+            backgroundColor: colors.backgroundColor,
             borderRadius: 20,
         },
         textStatus: {

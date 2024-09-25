@@ -15,6 +15,7 @@ import { authApi } from "./api/auth";
 import user from "./slice/user";
 import { serviceApi } from "./api/service";
 import { actionApi } from "./api/action";
+import { chatApi } from "./api/chat";
 
 
 const persistConfig = {
@@ -29,6 +30,7 @@ const persistConfig = {
     [authApi.reducerPath]: authApi.reducer,
     [serviceApi.reducerPath]: serviceApi.reducer,
     [actionApi.reducerPath]: actionApi.reducer,
+    [chatApi.reducerPath]: chatApi.reducer,
   });
   const persistedReducer = persistReducer(persistConfig, reducer);
   export const store = configureStore({
@@ -44,6 +46,7 @@ const persistConfig = {
       .concat(authApi.middleware)
       .concat(serviceApi.middleware)
       .concat(actionApi.middleware)
+      .concat(chatApi.middleware),
   });
   
   export type RootState = ReturnType<typeof store.getState>;
