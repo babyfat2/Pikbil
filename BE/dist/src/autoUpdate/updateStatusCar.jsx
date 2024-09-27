@@ -12,40 +12,36 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllCar = getAllCar;
-const prisma_1 = __importDefault(require("../../lib/prisma"));
-function getAllCar(req, res, next) {
+exports.updateStatusCheckout = updateStatusCheckout;
+const prisma_1 = __importDefault(require("../lib/prisma"));
+function updateStatusCheckout() {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/service/getAllCar");
+        console.log("🚀 ~ file: src/autoUpdate/updateStarCheckout");
         try {
-            const car = yield prisma_1.default.car.findMany({
+            const checkout = yield prisma_1.default.checkout.findMany({
                 select: {
                     id: true,
-                    name: true,
-                    description: true,
-                    fuel: true,
-                    interiorColor: true,
-                    kilometers: true,
-                    seats: true,
-                    transmission: true,
-                    price: true,
+                    dateRent: true,
                     status: true,
-                    imageUri: true,
-                    address: true,
-                    avgStar: true,
-                    owner: {
-                        select: {
-                            id: true,
-                            fullname: true,
-                            avatar: true,
-                        }
-                    },
                 }
             });
-            return res.status(200).json(car);
+            checkout.forEach((e) => __awaiter(this, void 0, void 0, function* () {
+                const datenow = new Date();
+                console.log(datenow);
+                if (e.dateRent >= datenow && e.status === "Ongoing") {
+                    const updateCheckout = yield prisma_1.default.checkout.update({
+                        where: {
+                            id: e.id,
+                        },
+                        data: {
+                            status: "Completed",
+                        }
+                    });
+                }
+            }));
         }
         catch (e) {
-            next(e);
+            console.log(e);
         }
     });
 }

@@ -57,7 +57,9 @@ function Checkout({ navigation, route }: CheckoutNavigationProp) {
                 </TouchableOpacity>
                 <Text style={styles.textCheckout}>Checkout</Text>
             </View>
-            <ScrollView>
+            <ScrollView 
+            showsVerticalScrollIndicator={false}
+            >
             <CarDetailBox name={car.name} price={car.price} address={car.address} image={car.imageUri[0]} dateRent={dateRent} />
             <RentInformation />
             <Text style={styles.textAdditional}>

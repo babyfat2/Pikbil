@@ -16,7 +16,28 @@ export async function getMyTrip(
       },
       select: {
         id: true,
-        car: true,
+        car: {
+          select: {
+            id: true,
+        name: true,
+        description: true,
+        fuel: true,
+        interiorColor: true,
+        kilometers: true,
+        seats: true,
+        transmission: true,
+        price: true,
+        imageUri: true,
+        address: true,
+        owner: {
+          select: {
+            id: true,
+            fullname: true,
+            avatar: true,
+          }
+        },
+          }
+        },
         status: true,
         dateRent: true,
         createdAt: true,

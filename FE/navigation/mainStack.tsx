@@ -12,6 +12,8 @@ import Review from "screen/Main/Review/Review";
 import BookingSuccess from "screen/Main/Checkout/BookingSuccess";
 import Chat from "screen/Main/Chat/Chat";
 import Setting from "screen/Main/Setting/Setting";
+import ContactOwner from "screen/Main/Chat/ContactOwner";
+import AllCar from "screen/Main/AllCar/AllCar";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -30,6 +32,8 @@ export default function MainStack() {
       <Stack.Screen name="BookingSuccess" component={BookingSuccess} />
       <Stack.Screen name="Chat" component={Chat} />
       <Stack.Screen name="Setting" component={Setting} />
+      <Stack.Screen name="ContactOwner" component={ContactOwner} />
+      <Stack.Screen name="AllCar" component={AllCar} />
     </Stack.Navigator>
   );
 }

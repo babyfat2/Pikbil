@@ -9,22 +9,22 @@ import {
 import React from "react";;
 import useStyles from "style/useStyles";
 import { IColor } from "style/color";
-import { useAppSelector } from "redux/hooks.ts/hooks";
 import Animated from "react-native-reanimated";
-import { useGetAllCarQuery, useGetAllDiscountQuery } from "redux/api/service";
+import { useGetAllDiscountQuery, useGetTopCarQuery } from "redux/api/service";
 import DiscountBox from "components/main/Home/discountBox";
 import { StatusBar } from "expo-status-bar";
 import HeaderHome from "components/main/Home/header";
 import CarBox from "components/main/Home/carBox";
 import CarBoxSkeleton from "components/main/Home/carBoxSkeleton";
 import DiscountBoxSkeleton from "components/main/Home/discountBoxSkeletion";
+import { HomeNavigationProp } from "types/navigation";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
-function Home() {
+function Home({navigation, route}: HomeNavigationProp) {
     const { colors, styles } = useStyles(createStyles);
-    const allCar = useGetAllCarQuery(null);
+    const topCar = useGetTopCarQuery(null);
     const allDiscount = useGetAllDiscountQuery(null);
     return (
         <Animated.View
@@ -43,17 +43,19 @@ function Home() {
             />}
             <View style={styles.viewTopVehicle}>
                 <Text style={styles.textTopVehicle}>Top vehicle</Text>
-                <TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => navigation.navigate("AllCar")}
+                >
                     <Text style={styles.textSeeAll}>See all</Text>
                 </TouchableOpacity>
             </View>
-            {allCar.isLoading ? 
+            {topCar.isLoading ? 
             <CarBoxSkeleton />
             :
             <FlatList
                 showsHorizontalScrollIndicator={false}
                 horizontal={true}
-                data={allCar.data}
+                data={topCar.data}
                 renderItem={(item) => <CarBox car={item.item} />}
             />
 }

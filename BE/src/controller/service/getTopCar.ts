@@ -1,14 +1,14 @@
 import { NextFunction, Response, Request } from "express";
 import { compareHashedPassword, createJWT } from "../../middleware/auth";
 import prisma from "../../lib/prisma";
-export async function getAllCar(
+export async function getTopCar(
   req: any,
   res: Response,
   next: NextFunction
 ) {
-  console.log("🚀 ~ file: src/controler/service/getAllCar");
+  console.log("🚀 ~ file: src/controler/service/getTopCar");
   try {
-    const car = await prisma.car.findMany({
+    const topCar = await prisma.car.findMany({
       select: {
         id: true,
         name: true,
@@ -30,9 +30,13 @@ export async function getAllCar(
             avatar: true,
           }
         },
-      }
-    })
-    return res.status(200).json(car);
+      },
+      orderBy: {
+        avgStar: "desc",
+      },
+      take: 5,
+    });
+    return res.status(200).json(topCar);
   } catch (e: any) {
     next(e);
   }

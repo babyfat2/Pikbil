@@ -29,24 +29,24 @@ function Chat({ navigation, route }: ChatNavigationProp) {
     const socket = useSocket();
     const [chatMessage, setChatMessange] = useState(route.params.boxChat.arrayMessage);
     useEffect(() => {
-        console.log("render again");
-        socket?.emit('joinRoom',{room : user?.id});
+        socket?.emit('joinRoom', { room: user?.id });
         if (!socket?.hasListeners('reviveMessage')) {
-            socket?.on("reciveMessage", (data: {message: IMessage}) => {
+            socket?.on("reciveMessage", (data: { message: IMessage }) => {
                 setChatMessange(prevChatMessage => updateDataChat(prevChatMessage, data.message));
-            }) 
+            })
         }
         return () => {
             socket?.off('reciveMessage'); // Removes the specific listener for 'reciveMessage'
             socket?.emit('leaveRoom', { room: user?.id }); // Optionally leave the room if needed
         };
-      }, []);
+    }, []);
     if (user && chatMessage)
         return (
             <View style={styles.container}>
                 <HeaderChat />
                 <View style={styles.detailChat}>
                     <FlatList
+                        showsVerticalScrollIndicator={false}
                         inverted={true}
                         data={chatMessage}
                         renderItem={({ item }) => <BoxMessage message={item} userId={user.id} />}

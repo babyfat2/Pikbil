@@ -24,6 +24,7 @@ export interface ICar {
     seats: string;
     transmission: string;
     price: number;
+    avgStar: number;
     address: string;
     imageUri: string[];
     owner: IUserData;

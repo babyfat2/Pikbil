@@ -23,17 +23,13 @@ function configureSocket(server) {
     const io = new socket_io_1.Server(server);
     io.engine.use(__1.sessionMiddleWare);
     io.use((socket, next) => __awaiter(this, void 0, void 0, function* () {
-        var _a, _b, _c;
         //@ts-ignore
-        console.log("🍪", socket.handshake.headers);
-        console.log("🍪", socket.id);
+        var _a, _b;
         const token = (_b = (_a = socket.handshake) === null || _a === void 0 ? void 0 : _a.auth) === null || _b === void 0 ? void 0 : _b.token;
-        console.log("🚀 ~ file: socket.ts:17 ~ IO.use ~ token:", (_c = socket.handshake) === null || _c === void 0 ? void 0 : _c.auth);
         if (!token) {
             return next(new Error("Not authorized"));
         }
         const user = jsonwebtoken_1.default.verify(token, process.env.SECRET || "");
-        console.log("🚀 ~ file: socket.ts:33 ~ IO.use ~ user:", user);
         if (user) {
             const update = yield prisma_1.default.user.update({
                 where: {
@@ -43,7 +39,6 @@ function configureSocket(server) {
                     socket: socket.id,
                 }
             });
-            console.log(update);
             socket.data.userId = user.id;
             socket.data.userName = user.email;
             return next();
@@ -51,7 +46,6 @@ function configureSocket(server) {
         next(new Error("Not authorized"));
     }));
     io.on("connection", (socket) => __awaiter(this, void 0, void 0, function* () {
-        console.log(`⚡: ${socket.data.userId} user just connected!`);
         (0, chatEvents_1.default)(socket, io);
         (0, joinRoom_1.default)(socket, io);
         (0, leaveRoom_1.default)(socket, io);

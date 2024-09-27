@@ -49,6 +49,10 @@ export type RootStackParamList = {
     receiverId: IUserData;
   };
   Setting: undefined;
+  ContactOwner: {
+    owner: IUserData;
+  },
+  AllCar: undefined;
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -75,3 +79,7 @@ export type BookingSuccessNavigationProp = NativeStackScreenProps<RootStackParam
 export type ChatNavigationProp = NativeStackScreenProps<RootStackParamList, "Chat">;
 
 export type SettingNavigationProp = NativeStackScreenProps<RootStackParamList, "Setting">;
+
+export type ContactOwnerNavigationProp = NativeStackScreenProps<RootStackParamList, "ContactOwner">;
+
+export type AllCarNavigationProp = NativeStackScreenProps<RootStackParamList, "AllCar">;

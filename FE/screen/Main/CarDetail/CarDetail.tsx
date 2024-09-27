@@ -7,7 +7,7 @@ import {
     TouchableOpacity,
     ScrollView,
 } from "react-native";
-import React from "react";;
+import React, { useEffect, useState } from "react";;
 import useStyles from "style/useStyles";
 import { IColor } from "style/color";
 import Animated from "react-native-reanimated";
@@ -18,20 +18,29 @@ import HostDetail from "components/main/CarDetail/HostDetail";
 import CarComment from "components/main/CarDetail/CarComment";
 import RentCar from "components/main/CarDetail/RentCar";
 import { useGetCommentByCarQuery } from "redux/api/service";
+import { useAppSelector } from "redux/hooks.ts/hooks";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 function CarDetail({navigation, route}: CarDetailNavigationProp) {
     const { colors, styles } = useStyles(createStyles);
+    const userId = useAppSelector((status) => status.user.data?.id)
     const car = route.params.car;
     const comment = useGetCommentByCarQuery(car.id);
-    console.log(comment.currentData?.at(0));
+    const [isOwner, setIsOwner] = useState(false);
+    useEffect(() => {
+        if(car.owner.id === userId) {
+            setIsOwner(true);
+        }
+    },[])
     return (
         <Animated.View
             style={styles.container}
         >
-            <ScrollView>
+            <ScrollView
+            showsVerticalScrollIndicator={false}
+            >
             <CarImage images={car.imageUri} />
             <CarDecription 
             name={car.name} 
@@ -42,7 +51,7 @@ function CarDetail({navigation, route}: CarDetailNavigationProp) {
             seats={car.seats} 
             transmission={car.transmission}
             address = {car.address} />
-            <HostDetail owner={car.owner}/>
+            {!isOwner && <HostDetail owner={car.owner}/> }
             <Text style={{
                 fontFamily: 'Montserrat-Bold',
                 fontSize: 18,
@@ -54,7 +63,7 @@ function CarDetail({navigation, route}: CarDetailNavigationProp) {
             </Text>
             <CarComment comment={comment.currentData?.at(0)} />
             </ScrollView>
-            <RentCar car={car} />
+            {!isOwner && <RentCar car={car} />}
         </Animated.View>
     );
 }

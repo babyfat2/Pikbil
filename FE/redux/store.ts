@@ -16,6 +16,8 @@ import user from "./slice/user";
 import { serviceApi } from "./api/service";
 import { actionApi } from "./api/action";
 import { chatApi } from "./api/chat";
+import trip from "./slice/trip";
+import chat from "./slice/chat";
 
 
 const persistConfig = {
@@ -27,6 +29,8 @@ const persistConfig = {
     routeApp,
     darkMode,
     user,
+    trip,
+    chat,
     [authApi.reducerPath]: authApi.reducer,
     [serviceApi.reducerPath]: serviceApi.reducer,
     [actionApi.reducerPath]: actionApi.reducer,

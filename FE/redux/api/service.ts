@@ -15,6 +15,13 @@ export const serviceApi = createApi({
             query: () => `/getAllCar`,
             extraOptions: { maxRetries: 2 }
         }),
+        getTopCar: builder.query<
+            ICar[],
+            null
+        >({
+            query: () => `/getTopCar`,
+            extraOptions: { maxRetries: 2 }
+        }),
         getAllDiscount: builder.query<
             IDiscount[],
             null
@@ -39,7 +46,10 @@ export const serviceApi = createApi({
     }),
 });
 
-export const { useGetAllCarQuery, 
-    useGetAllDiscountQuery, 
+export const { 
+    useGetTopCarQuery,
+    useGetAllCarQuery,
+    useGetAllDiscountQuery,
     useGetAllProtectionPlansQuery,
-useGetCommentByCarQuery, } = serviceApi;
+    useGetCommentByCarQuery, 
+} = serviceApi;

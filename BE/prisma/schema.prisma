@@ -38,6 +38,8 @@ model Car {
   transmission        String
   price               Float
   address             String
+  status              String             @default("available")
+  avgStar             Float?
   imageUri            String[]
   ownerId             String             @db.ObjectId
   owner               User               @relation(fields: [ownerId],references: [id])

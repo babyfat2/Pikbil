@@ -12,47 +12,52 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMyTrip = getMyTrip;
+exports.getChatById = getChatById;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function getMyTrip(req, res, next) {
+function getChatById(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/user/getMyTrip");
+        console.log("🚀 ~ file: src/controler/chat/getMyRoomChat");
         const userId = req.user.id;
+        const ownerId = req.query.ownerId;
+        console.log(ownerId + userId);
         try {
-            const myTrip = yield prisma_1.default.checkout.findMany({
+            const chat = yield prisma_1.default.chat.findMany({
                 where: {
-                    renterId: userId
+                    OR: [{
+                            senderId: userId,
+                            receiverId: ownerId,
+                        },
+                        {
+                            receiverId: userId,
+                            senderId: ownerId,
+                        }]
+                },
+                orderBy: {
+                    createdAt: "desc",
                 },
                 select: {
                     id: true,
-                    car: {
+                    message: true,
+                    imageUri: true,
+                    createdAt: true,
+                    sender: {
                         select: {
                             id: true,
-                            name: true,
-                            description: true,
-                            fuel: true,
-                            interiorColor: true,
-                            kilometers: true,
-                            seats: true,
-                            transmission: true,
-                            price: true,
-                            imageUri: true,
-                            address: true,
-                            owner: {
-                                select: {
-                                    id: true,
-                                    fullname: true,
-                                    avatar: true,
-                                }
-                            },
+                            fullname: true,
+                            avatar: true,
                         }
                     },
-                    status: true,
-                    dateRent: true,
-                    createdAt: true,
+                    roomId: true,
+                    receiver: {
+                        select: {
+                            id: true,
+                            fullname: true,
+                            avatar: true,
+                        }
+                    }
                 }
             });
-            return res.status(200).json(myTrip);
+            return res.status(200).json(chat);
         }
         catch (e) {
             next(e);

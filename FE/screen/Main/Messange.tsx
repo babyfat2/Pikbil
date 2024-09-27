@@ -43,9 +43,16 @@ const updateDataChat = (arrayMessage: IBoxChat[], newMessage: IMessage) => {
 function Messange() {
     const { colors, styles } = useStyles(createStyles);
     const user = useAppSelector((status) => status.user.data)
-    const {data, isLoading} = useGetMyRoomChatQuery(null);
+    const {data, isLoading, refetch} = useGetMyRoomChatQuery(null);
     const [dataChat, setDataChat] = useState<IBoxChat[]>([]);
     const socket = useSocket();
+    const reloadChat = useAppSelector((status) => status.chat.reloading );
+    useEffect(() => {
+        if (reloadChat) {
+          // Khi reloadChat = true, gọi lại API trips
+          refetch();
+        }
+      }, [reloadChat]);
     useEffect(() => {
         console.log("render again");
         socket?.emit('joinRoom',{room : user?.id});
@@ -65,7 +72,7 @@ function Messange() {
             <Text style={styles.textMessange}>Messange</Text>
             <SearchChat />
             <FlatList
-            showsHorizontalScrollIndicator={false}
+            showsVerticalScrollIndicator={false}
             data={dataChat}
             renderItem={(item) => <UserChatBox boxChat={item.item} />}
             />

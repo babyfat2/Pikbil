@@ -15,6 +15,8 @@ import { useLoginMutation } from "redux/api/auth";
 import { IError } from "types/api";
 import { useAppDispatch } from "redux/hooks.ts/hooks";
 import { openHome } from "redux/slice/routeApp";
+import { reloadTrip } from "redux/slice/trip";
+import { reloadChat } from "redux/slice/chat";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -36,6 +38,8 @@ function Login({navigation} : LoginScreen) {
     .unwrap()
     .then((e) => {
       dispatch(openHome());
+      dispatch(reloadTrip());
+      dispatch(reloadChat());
     })
     .catch((e) => {
       if(e.status === 401) {

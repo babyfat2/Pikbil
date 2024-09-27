@@ -12,47 +12,41 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getMyTrip = getMyTrip;
+exports.getTopCar = getTopCar;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function getMyTrip(req, res, next) {
+function getTopCar(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/user/getMyTrip");
-        const userId = req.user.id;
+        console.log("🚀 ~ file: src/controler/service/getTopCar");
         try {
-            const myTrip = yield prisma_1.default.checkout.findMany({
-                where: {
-                    renterId: userId
-                },
+            const topCar = yield prisma_1.default.car.findMany({
                 select: {
                     id: true,
-                    car: {
+                    name: true,
+                    description: true,
+                    fuel: true,
+                    interiorColor: true,
+                    kilometers: true,
+                    seats: true,
+                    transmission: true,
+                    price: true,
+                    status: true,
+                    imageUri: true,
+                    address: true,
+                    avgStar: true,
+                    owner: {
                         select: {
                             id: true,
-                            name: true,
-                            description: true,
-                            fuel: true,
-                            interiorColor: true,
-                            kilometers: true,
-                            seats: true,
-                            transmission: true,
-                            price: true,
-                            imageUri: true,
-                            address: true,
-                            owner: {
-                                select: {
-                                    id: true,
-                                    fullname: true,
-                                    avatar: true,
-                                }
-                            },
+                            fullname: true,
+                            avatar: true,
                         }
                     },
-                    status: true,
-                    dateRent: true,
-                    createdAt: true,
-                }
+                },
+                orderBy: {
+                    avgStar: "desc",
+                },
+                take: 5,
             });
-            return res.status(200).json(myTrip);
+            return res.status(200).json(topCar);
         }
         catch (e) {
             next(e);

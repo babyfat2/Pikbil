@@ -4,6 +4,7 @@ import { getAllCar } from "../../controller/service/getAllCar";
 import { getAllDiscount } from "../../controller/service/getAllDiscount";
 import { getAllProtectionPlans } from "../../controller/service/getAllProtectionPlans";
 import { getCommentByCar } from "../../controller/service/getCommentByCar";
+import { getTopCar } from "../../controller/service/getTopCar";
 
 const router = Router();
 
@@ -16,5 +17,6 @@ router.get("/getAllCar", getAllCar);
 router.get("/getAllDiscount", getAllDiscount);
 router.get("/getAllProtectionPlans", getAllProtectionPlans);
 router.get("/getCommentByCar", getCommentByCar);
+router.get("/getTopCar", getTopCar);
 
 export default router;

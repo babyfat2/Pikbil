@@ -14,13 +14,18 @@ import { useDispatch } from "react-redux";
 import useSecondSocket from "socket/SecondSocket";
 import SettingBox from "components/main/Profile/SettingBox";
 import { useAppSelector } from "redux/hooks.ts/hooks";
+import { openAuth } from "redux/slice/routeApp";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 
 function Profile() {
     const { colors, styles } = useStyles(createStyles);
-    const user = useAppSelector((status) => status.user.data)
+    const user = useAppSelector((status) => status.user.data);
+    const dispatch = useDispatch();
+    const onPress = () => {
+        dispatch(openAuth());
+    }
     return (
         <View style={styles.container}>
             <AvatarBox />
@@ -30,6 +35,7 @@ function Profile() {
             <SettingBox />
             <TouchableOpacity
                 style={styles.buttonLogin}
+                onPress={onPress}
                 >
                 <Text style={styles.textLogout}>Logout</Text>
             </TouchableOpacity>

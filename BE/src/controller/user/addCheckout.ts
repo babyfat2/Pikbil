@@ -1,7 +1,5 @@
 import { NextFunction, Response, } from "express";
-import { createHashedPassword, } from "../../middleware/auth";
 import prisma from "../../lib/prisma";
-import { connect } from "http2";
 export async function addCheckout(
   req: any,
   res: Response,

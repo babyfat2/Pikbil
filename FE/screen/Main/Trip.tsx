@@ -5,13 +5,14 @@ import {
     StyleSheet,
     FlatList,
 } from "react-native";
-import React, { useState } from "react";;
+import React, { useEffect, useState } from "react";;
 import useStyles from "style/useStyles";
 import { IColor } from "style/color";
 import TableChoose from "components/main/Trip/TableChoose";
 import TripBox from "components/main/Trip/TripBox";
 import { useGetMyTripQuery } from "redux/api/action";
 import TripBoxSkeleton from "components/main/Trip/TripBoxSkeleton";
+import { useAppSelector } from "redux/hooks.ts/hooks";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -20,6 +21,13 @@ function Trip() {
     const { colors, styles } = useStyles(createStyles);
     const [status, setStatus] = useState<string>("All");
     const trips = useGetMyTripQuery(null);
+    const reloadTrip = useAppSelector((status) => status.trip.reloading );
+    useEffect(() => {
+        if (reloadTrip) {
+          // Khi reloadTrip = true, gọi lại API trips
+          trips.refetch();
+        }
+      }, [reloadTrip]);
     return (
         <View style={styles.container}>
             <Text style={styles.textMyTrip}>My Trip</Text>
@@ -32,6 +40,7 @@ function Trip() {
                 </>
             ) : (
                 <FlatList
+                showsVerticalScrollIndicator={false}
                     data={trips.currentData}
                     renderItem={(item) => (
                         ((item.item.status === status || status === "All") ? (

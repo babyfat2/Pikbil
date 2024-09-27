@@ -12,6 +12,8 @@ import useStyles from "style/useStyles";
 import { BookingSuccessNavigationProp, CheckoutNavigationProp, } from "types/navigation";
 import { IColor } from "style/color";
 import { LogBox } from 'react-native';
+import { useDispatch } from "react-redux";
+import { reloadTrip } from "redux/slice/trip";
 LogBox.ignoreLogs([
     'Non-serializable values were found in the navigation state',
 ]);
@@ -21,6 +23,11 @@ const width = Dimensions.get("window").width;
 
 function BookingSuccess({ navigation, route }: BookingSuccessNavigationProp) {
     const { colors, styles } = useStyles(createStyles);
+    const dispatch = useDispatch();
+    const OnPressBackTohome = () => {
+        navigation.popToTop()
+        dispatch(reloadTrip())
+    }
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -34,7 +41,7 @@ function BookingSuccess({ navigation, route }: BookingSuccessNavigationProp) {
             </View>
             <TouchableOpacity
             style={styles.buttonBackHome}
-            onPress={() => navigation.popToTop()}
+            onPress={OnPressBackTohome}
             >
                 <Text style={styles.textBackHome}>Back to homepage</Text>
             </TouchableOpacity>

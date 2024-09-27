@@ -1,13 +1,14 @@
 import React from "react";
-import { View, Text, Image, Dimensions, } from "react-native";
+import { View, Text, Image, Dimensions, TouchableOpacity, } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import { IUserData } from "types/api";
+import { HomeProp } from "types/navigation";
 const height = Dimensions.get("window").height * 0.3;
 const width = Dimensions.get("window").width;
 
 const HostDetail = ({ owner }: { owner: IUserData }) => {
-    const navigation = useNavigation();
+    const navigation = useNavigation<HomeProp>();
     const colors = useAppSelector((state) => state.darkMode.color);
     return (
         <View style={{
@@ -22,7 +23,7 @@ const HostDetail = ({ owner }: { owner: IUserData }) => {
                 HOST DETAIL
             </Text>
             <View
-                style={{ flexDirection: 'row', }}
+                style={{ flexDirection: 'row',  }}
             >
                 {!owner.avatar ?
                     <Image style={{ width: 40, height: 40, borderRadius: 20, borderWidth: 0.5, borderColor: colors.primary}} source={require('../../../assets/avatar.png')} />
@@ -46,6 +47,25 @@ const HostDetail = ({ owner }: { owner: IUserData }) => {
                         fontSize: 14,
                     }}>{owner.email}</Text>
                 </View>
+                <TouchableOpacity style={{
+                    position: 'absolute',
+                    right: 0,
+                    backgroundColor: colors.primary,
+                    padding: 10,
+                    paddingLeft: 20,
+                    paddingRight: 20,
+                    borderRadius: 20,
+                }}
+                onPress={() => navigation.navigate("ContactOwner", {owner: owner})}
+                >
+                    <Text style={{
+                        fontFamily: 'Montserrat-Bold', 
+                        color: "#FFF",
+                        fontSize: 14,
+                    }}
+                    >Contact
+                    </Text>
+                </TouchableOpacity>
             </View>
         </View>
     );

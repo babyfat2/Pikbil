@@ -20,14 +20,46 @@ function TripBox({
 }: {
     tripInfor: ITrip;
 }) {
+    console.log(tripInfor.car);
     const { colors, styles } = useStyles(createStyles);
     const navigation = useNavigation<HomeProp>();
     const date = new Date(tripInfor.createdAt);
     const dateRent = new Date(tripInfor.dateRent);
     const dateString = new String(date.toLocaleString().slice(0, 9) + " - " + dateRent.toLocaleString().slice(0, 9));
-    return (
+    if (tripInfor.status === "Ongoing") {
+        return (
+            <View style={styles.container}>
+                {tripInfor.car.imageUri ?
+                    <Image style={styles.imageCar} source={{ uri: tripInfor.car.imageUri[0] }} />
+                    :
+                    <Image style={styles.imageCar} source={require("../../../image/welcome1.png")} />}
+                <View style={styles.viewStatus}>
+                    <Text style={styles.textStatus}>{tripInfor.status}</Text>
+                </View>
+                <Text style={styles.nameCar}>{tripInfor.car.name}</Text>
+                <Text style={styles.addressCar}>{tripInfor.car.address}, {dateString}</Text>
+                <View style={styles.buttonView}>
+                    <TouchableOpacity
+                        style={styles.buttonReview}
+                        onPress={() => navigation.navigate("ContactOwner", { owner: tripInfor.car.owner })}
+                    >
+                        <Text style={styles.textReview}>Contact owner</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={styles.buttonBookingAgain}
+                    >
+                        <Text style={styles.textBookingAgain}>Cancel</Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+        );
+    } else if (tripInfor.status === "Cancelled") {
+        return (
         <View style={styles.container}>
-            <Image style={styles.imageCar} source={require("../../../image/welcome1.png")} />
+            {tripInfor.car.imageUri ?
+                <Image style={styles.imageCar} source={{ uri: tripInfor.car.imageUri[0] }} />
+                :
+                <Image style={styles.imageCar} source={require("../../../image/welcome1.png")} />}
             <View style={styles.viewStatus}>
                 <Text style={styles.textStatus}>{tripInfor.status}</Text>
             </View>
@@ -36,30 +68,42 @@ function TripBox({
             <View style={styles.buttonView}>
                 <TouchableOpacity
                     style={styles.buttonReview}
-                    onPress={() => navigation.navigate("Review", {car: tripInfor.car})}
+                    onPress={() => navigation.navigate("CarDetail", { car: tripInfor.car })}
                 >
-                    {tripInfor.status === "Ongoing" ?
-                        <Text style={styles.textReview}>Contact owner</Text>
-                        : (tripInfor.status === "Cancelled" ?
-                            <Text style={styles.textReview}>Booking again</Text>
-                            :
-                            <Text style={styles.textReview}>Write review</Text>)
-                    }
+                    <Text style={styles.textReview}>Booking again</Text>
                 </TouchableOpacity>
-                {tripInfor.status != "Cancelled" &&
-                    <TouchableOpacity
-                        style={styles.buttonBookingAgain}
-                    >
-                        {tripInfor.status === "Ongoing" ?
-                            <Text style={styles.textBookingAgain}>Cancel</Text>
-                            :
-                            <Text style={styles.textBookingAgain}>Booking again</Text>
-                        }
-                    </TouchableOpacity>
-                }
             </View>
         </View>
-    );
+        );
+    } else {
+        return (
+        <View style={styles.container}>
+            {tripInfor.car.imageUri ?
+                <Image style={styles.imageCar} source={{ uri: tripInfor.car.imageUri[0] }} />
+                :
+                <Image style={styles.imageCar} source={require("../../../image/welcome1.png")} />}
+            <View style={styles.viewStatus}>
+                <Text style={styles.textStatus}>{tripInfor.status}</Text>
+            </View>
+            <Text style={styles.nameCar}>{tripInfor.car.name}</Text>
+            <Text style={styles.addressCar}>{tripInfor.car.address}, {dateString}</Text>
+            <View style={styles.buttonView}>
+                <TouchableOpacity
+                    style={styles.buttonReview}
+                    onPress={() => navigation.navigate("CarDetail", { car: tripInfor.car })}
+                >
+                    <Text style={styles.textReview}>Booking again</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.buttonBookingAgain}
+                    onPress={() => navigation.navigate("Review", { car: tripInfor.car })}
+                >
+                    <Text style={styles.textBookingAgain}>Write review</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+        );
+    }
 }
 const createStyles = (colors: IColor) =>
     StyleSheet.create({
@@ -68,7 +112,7 @@ const createStyles = (colors: IColor) =>
             marginRight: 5,
         },
         imageCar: {
-            width: width * 13/15 -1,
+            width: width * 13 / 15 - 1,
             height: height * 0.20,
             borderRadius: 20,
             marginBottom: 10,

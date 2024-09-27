@@ -12,37 +12,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllCar = getAllCar;
+exports.firstMessage = firstMessage;
 const prisma_1 = __importDefault(require("../../lib/prisma"));
-function getAllCar(req, res, next) {
+function firstMessage(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
-        console.log("🚀 ~ file: src/controler/service/getAllCar");
+        console.log("🚀 ~ file: src/controler/chat/firstMessage");
         try {
-            const car = yield prisma_1.default.car.findMany({
+            const createRoom = yield prisma_1.default.room.create({
                 select: {
                     id: true,
-                    name: true,
-                    description: true,
-                    fuel: true,
-                    interiorColor: true,
-                    kilometers: true,
-                    seats: true,
-                    transmission: true,
-                    price: true,
-                    status: true,
-                    imageUri: true,
-                    address: true,
-                    avgStar: true,
-                    owner: {
-                        select: {
-                            id: true,
-                            fullname: true,
-                            avatar: true,
-                        }
-                    },
                 }
             });
-            return res.status(200).json(car);
+            return res.status(200).json(createRoom);
         }
         catch (e) {
             next(e);

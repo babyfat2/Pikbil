@@ -57,6 +57,7 @@ export default function CarDecription (
         style={{
             paddingLeft: width * 0.05,
             paddingRight: width * 0.05,
+            marginBottom: 10,
         }}
         >
             <Text style={{

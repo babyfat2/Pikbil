@@ -14,21 +14,21 @@ import { useNavigation } from "@react-navigation/native";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
-export default function CarBox({ car }: { car: ICar }) {
+export default function CarBoxAll({ car }: { car: ICar }) {
     const colors = useAppSelector((state) => (state.darkMode.color));
     const navigation = useNavigation<HomeProp>()
     return (
         <TouchableOpacity
             style={{
-                width: width * 0.6,
-                marginRight: 20,
+                width: '100%',
+                marginBottom: 20,
             }}
             onPress={() => navigation.navigate("CarDetail", { car: car })}
         >
             <Image
                 style={{
-                    height: height * 0.2,
-                    width: width * 0.6,
+                    height: height * 0.25,
+                    width: '100%',
                     borderRadius: 10,
                     marginBottom: 10,
                 }}
@@ -53,7 +53,7 @@ export default function CarBox({ car }: { car: ICar }) {
                     color: colors.textPrimary,
                     marginLeft: 5,
                 }}>
-                    {car.avgStar.toString().slice(0,3)}
+                    {car.avgStar ? car.avgStar.toString().slice(0, 3) : "0"}
                 </Text>
                 <Text style={{
                     fontFamily: 'Monsterrat-Light',

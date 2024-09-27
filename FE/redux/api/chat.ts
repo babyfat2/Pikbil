@@ -24,7 +24,31 @@ export const chatApi = createApi({
       query: () => `/getMyRoomChat`,
       extraOptions: { maxRetries: 2 }
     }),
+    getChatById: builder.query<
+      IMessage[],
+      string
+    >({
+            query: (ownerId) => `/getChatByID?ownerId=${ownerId}`,
+      extraOptions: { maxRetries: 2 }
+    }),
+    firstMessage: builder.mutation<
+      { id: string},
+      {}
+    >({
+      query: (payload) => ({
+        url: "/firstMessage",
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetMyRoomChatQuery } = chatApi;
+export const { 
+  useGetMyRoomChatQuery,
+  useGetChatByIdQuery,
+  useFirstMessageMutation,
+ } = chatApi;
