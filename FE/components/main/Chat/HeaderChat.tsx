@@ -18,39 +18,43 @@ export default function HeaderChat() {
     return (
         <View style={{
             position: 'absolute',
-            marginTop: height * 0.04,
-            height: height * 0.1,
+            height: height * 0.14,
             width: width,
             backgroundColor: colors.backgroundColor,
             borderBottomWidth: 0.5,
-            justifyContent: 'center',
-            alignItems: 'center',
-            flexDirection: 'row',
         }}>
-            <TouchableOpacity
-                style={{
-                    width: width * 0.12,
-                }}
-                onPress={() => navigation.goBack()}
-            >
-                <Left width={24} height={24} color={colors.primary} />
-            </TouchableOpacity>
-            <View
-                style={{
-                    width: 0.75 * width,
-                    flexDirection: 'column',
-                }}
-            >
-                <Text style={{
-                    fontFamily: 'Montserrat-Bold',
-                    fontSize: 18,
-                    color: colors.textPrimary,
-                }}>Floy Miles</Text>
-                <Text style={{
-                    fontSize: 14,
-                    color: colors.textSecondary,
-                }}
-                >Floy Miles</Text>
+            <View style={{ height: height * 0.04 }} />
+            <View style={{
+                height: height * 0.1,
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexDirection: 'row',
+            }}>
+                <TouchableOpacity
+                    style={{
+                        width: width * 0.12,
+                    }}
+                    onPress={() => navigation.goBack()}
+                >
+                    <Left width={24} height={24} color={colors.primary} />
+                </TouchableOpacity>
+                <View
+                    style={{
+                        width: 0.75 * width,
+                        flexDirection: 'column',
+                    }}
+                >
+                    <Text style={{
+                        fontFamily: 'Montserrat-Bold',
+                        fontSize: 18,
+                        color: colors.textPrimary,
+                    }}>Floy Miles</Text>
+                    <Text style={{
+                        fontSize: 14,
+                        color: colors.textSecondary,
+                    }}
+                    >Floy Miles</Text>
+                </View>
             </View>
         </View>
     );

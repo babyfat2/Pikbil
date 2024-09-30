@@ -59,7 +59,32 @@ export const actionApi = createApi({
       query: () => `/getMyTrip`,
       extraOptions: { maxRetries: 2 }
     }),
+    changeAvatar: builder.mutation<
+      {},
+      {
+        uri: string;
+        mimeType: string;
+      }
+    >({
+      query: (payload) => {
+        const bolb: any = {
+          name: `${payload.uri.split("/").splice(-1)}`,
+          type: payload.mimeType,
+          uri: payload.uri,
+        }
+        const formData = new FormData();
+
+        formData.append("photo", bolb)
+        return {
+        url: "/changeAvatar",
+        method: "POST",
+        body: formData,
+        headers: {
+          "Content-type": "multipart/form-data",
+        }, };
+      },
+    }),
   }),
 });
 
-export const { useAddCheckoutMutation, useAddReviewCarMutation ,useGetMyTripQuery } = actionApi;
+export const { useAddCheckoutMutation, useAddReviewCarMutation ,useGetMyTripQuery, useChangeAvatarMutation } = actionApi;

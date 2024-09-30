@@ -19,6 +19,7 @@ export type RegisterScreen = NativeStackScreenProps<
 export type BottomRootStackParamList = {
   Home: undefined;
   Trip: undefined;
+  AddCar: undefined;
   Messange: undefined;
   Profile: undefined;
 };
@@ -26,6 +27,7 @@ export type BottomRootStackParamList = {
 export type RootStackParamList = {
   Home: undefined;
   Trip: undefined;
+  AddCar: undefined;
   Messange: undefined;
   Profile: undefined;
   CarDetail: {
@@ -53,6 +55,7 @@ export type RootStackParamList = {
     owner: IUserData;
   },
   AllCar: undefined;
+  AccountProfile: undefined;
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -83,3 +86,7 @@ export type SettingNavigationProp = NativeStackScreenProps<RootStackParamList, "
 export type ContactOwnerNavigationProp = NativeStackScreenProps<RootStackParamList, "ContactOwner">;
 
 export type AllCarNavigationProp = NativeStackScreenProps<RootStackParamList, "AllCar">;
+
+export type AccountProfileNavigationProp = NativeStackScreenProps<RootStackParamList, "AccountProfile">;
+
+export type AddCarNavigationProp = NativeStackScreenProps<RootStackParamList, "AddCar">;

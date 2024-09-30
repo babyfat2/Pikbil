@@ -43,7 +43,6 @@ function Chat({ navigation, route }: ChatNavigationProp) {
     if (user && chatMessage)
         return (
             <View style={styles.container}>
-                <HeaderChat />
                 <View style={styles.detailChat}>
                     <FlatList
                         showsVerticalScrollIndicator={false}
@@ -53,6 +52,7 @@ function Chat({ navigation, route }: ChatNavigationProp) {
                         keyExtractor={item => item.id}
                     />
                 </View>
+                <HeaderChat />
                 <InputChat
                     receiverId={route.params.receiverId}
                     roomId={route.params.boxChat.roomId}
@@ -74,8 +74,11 @@ const createStyles = (colors: IColor) =>
             color: colors.textPrimary,
         },
         detailChat: {
+            position: 'absolute',
+            bottom: height * 0.1 + 10,
+            left: width / 15,
+            width: width * 13/15,
             marginTop: height * 0.14,
-            height: height * 0.75,
         }
     });
 export default Chat;

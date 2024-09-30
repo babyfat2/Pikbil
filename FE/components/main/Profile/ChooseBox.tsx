@@ -8,11 +8,14 @@ import {
 import React from "react";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import { IconPerson } from "components/icons";
+import { useNavigation } from "@react-navigation/native";
+import { HomeProp } from "types/navigation";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
 export default function ChooseBox() {
     const colors = useAppSelector((state) => (state.darkMode.color));
+    const navigation = useNavigation<HomeProp>();
     return (
         <TouchableOpacity
             style={{
@@ -25,6 +28,7 @@ export default function ChooseBox() {
                 borderBottomWidth: 0.3,
                 borderColor: colors.secondary,
             }}
+            onPress={() => navigation.navigate("AccountProfile")}
         >
             <View
                 style={{
