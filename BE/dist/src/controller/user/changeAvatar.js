@@ -10,14 +10,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.changeAvatar = changeAvatar;
-const uploadImage_1 = require("./uploadImage");
 function changeAvatar(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("🚀 ~ file: src/controler/user/changeAvatar");
-        const id = req.user.id;
-        const { imageUri } = req.body;
+        const a = req.file;
+        const b = req.body.name;
+        console.log(b);
         try {
-            console.log((0, uploadImage_1.uploadImage)(imageUri));
         }
         catch (e) {
             next(e);

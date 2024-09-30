@@ -15,6 +15,7 @@ import useSecondSocket from "socket/SecondSocket";
 import SettingBox from "components/main/Profile/SettingBox";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import { openAuth } from "redux/slice/routeApp";
+import Logout from "components/main/Profile/Logout";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -31,14 +32,8 @@ function Profile() {
             <AvatarBox />
             <ChooseBox />
             <ChooseBox />
-            <ChooseBox />
             <SettingBox />
-            <TouchableOpacity
-                style={styles.buttonLogin}
-                onPress={onPress}
-                >
-                <Text style={styles.textLogout}>Logout</Text>
-            </TouchableOpacity>
+            <Logout />
         </View>
     );
 }

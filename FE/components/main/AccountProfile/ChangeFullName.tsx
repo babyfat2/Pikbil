@@ -9,11 +9,16 @@ import { useAppSelector } from "redux/hooks.ts/hooks";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
-export default function ChangeFullName() {
-    const colors = useAppSelector((state) => state.darkMode.color);
-    const user = useAppSelector((state) => state.user.data);
-    const [message, setMessage] = React.useState('');
-    if (user)
+export default function ChangeFullName(
+    {
+        fullname,
+        changeFullName,
+    }: {
+        fullname: string | undefined,
+        changeFullName: React.Dispatch<React.SetStateAction<string | undefined>>,
+    }
+) {
+    const colors = useAppSelector((state) => state.darkMode.color)
         return (
             <View
                 style={{
@@ -32,9 +37,9 @@ export default function ChangeFullName() {
                 <TextInput
                 autoFocus={true}
                 cursorColor={colors.primary}
-                placeholder={user.fullname}
-                onChangeText={setMessage}
-                value={message}
+                placeholder={fullname}
+                onChangeText={changeFullName}
+                value={fullname}
                 placeholderTextColor={colors.textPrimary}
                 style={{
                     width: '100%',

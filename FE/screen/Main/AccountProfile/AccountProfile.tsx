@@ -4,9 +4,6 @@ import {
     Text,
     StyleSheet,
     TouchableOpacity,
-    KeyboardAvoidingView,
-    Platform,
-    ScrollView,
 } from "react-native";
 import React, { useState } from "react";;
 import useStyles from "style/useStyles";
@@ -24,34 +21,45 @@ const width = Dimensions.get("window").width;
 function AccountProfile({ navigation, route }: AccountProfileNavigationProp) {
     const { colors, styles } = useStyles(createStyles);
     const [updateProfile] = useChangeAvatarMutation();
-    const [avatar, changeAvatar] = useState<{uri :string, mimeType: string}>();
+    const name = useAppSelector((status) => status.user.data?.fullname);
+    const [fullname, changeFullName] = useState(name);
+    const [avatar, changeAvatar] = useState<{ uri: string, mimeType: string }>();
     const onPressAvatar = () => {
-        console.log(avatar);
-        if(avatar)
-        updateProfile({uri: avatar.uri, mimeType: avatar.mimeType})
+        if (avatar && fullname) {
+            updateProfile({ fullname: fullname ,uri: avatar.uri, mimeType: avatar.mimeType })
+                .unwrap()
+                .then((e) => {
+                    console.log("aaa");
+                })
+                .catch((e) => {
+                    console.log(e);
+                })
+            } else {
+                
+            }
     }
     return (
 
-            <View
-                style={styles.container}
-            >
-                <View style={styles.header}>
-                    <TouchableOpacity
-                        onPress={() => navigation.goBack()}
-                    >
-                        <Left height={32} width={32} color={colors.primary} />
-                    </TouchableOpacity>
-                    <Text style={styles.textAccountProfile}>ACCOUNT PROFILE</Text>
-                </View>
-                <ChangeAvatar changeAvatar={changeAvatar} />
-                <ChangeFullName />
+        <View
+            style={styles.container}
+        >
+            <View style={styles.header}>
                 <TouchableOpacity
-                    style={styles.buttonUpdateProfile}
-                    onPress={onPressAvatar}
+                    onPress={() => navigation.goBack()}
                 >
-                    <Text style={styles.textUpdateProfile}>Update profile</Text>
+                    <Left height={32} width={32} color={colors.primary} />
                 </TouchableOpacity>
+                <Text style={styles.textAccountProfile}>ACCOUNT PROFILE</Text>
             </View>
+            <ChangeAvatar changeAvatar={changeAvatar} />
+            <ChangeFullName fullname={fullname} changeFullName={changeFullName} />
+            <TouchableOpacity
+                style={styles.buttonUpdateProfile}
+                onPress={onPressAvatar}
+            >
+                <Text style={styles.textUpdateProfile}>Update profile</Text>
+            </TouchableOpacity>
+        </View>
     );
 }
 const createStyles = (colors: IColor) =>

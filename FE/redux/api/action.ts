@@ -62,6 +62,7 @@ export const actionApi = createApi({
     changeAvatar: builder.mutation<
       {},
       {
+        fullname: string;
         uri: string;
         mimeType: string;
       }
@@ -73,8 +74,8 @@ export const actionApi = createApi({
           uri: payload.uri,
         }
         const formData = new FormData();
-
-        formData.append("photo", bolb)
+        formData.append("photo", bolb);
+        formData.append("name", payload.fullname)
         return {
         url: "/changeAvatar",
         method: "POST",
