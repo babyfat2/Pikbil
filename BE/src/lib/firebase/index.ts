@@ -1,6 +1,6 @@
 import admin from "firebase-admin";
 
-const serviceAccount = require("../../../travel-20421-firebase-adminsdk.json");
+const serviceAccount = require("");
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
