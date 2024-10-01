@@ -13,6 +13,7 @@ import TripBox from "components/main/Trip/TripBox";
 import { useGetMyTripQuery } from "redux/api/action";
 import TripBoxSkeleton from "components/main/Trip/TripBoxSkeleton";
 import { useAppSelector } from "redux/hooks.ts/hooks";
+import CancelBooking from "components/main/Trip/CancelBooking";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
