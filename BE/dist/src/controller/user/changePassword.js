@@ -19,24 +19,36 @@ function changePassword(req, res, next) {
     return __awaiter(this, void 0, void 0, function* () {
         console.log("🚀 ~ file: src/controler/user/changePassword");
         const id = req.user.id;
-        const { password } = req.body;
+        const { oldPassword, newPassword } = req.body;
         try {
-            const user = yield prisma_1.default.user.update({
+            const user = yield prisma_1.default.user.findUnique({
                 where: {
                     id: id,
                 },
-                data: {
-                    password: yield (0, auth_1.createHashedPassword)(password),
+                select: {
+                    password: true,
                 }
             });
-            if (user) {
+            if (user && (yield (0, auth_1.compareHashedPassword)(oldPassword, user.password))) {
+                const changePassword = yield prisma_1.default.user.update({
+                    where: {
+                        id: id,
+                    },
+                    data: {
+                        password: yield (0, auth_1.createHashedPassword)(newPassword),
+                    }
+                });
                 return res
                     .status(200)
                     .json({
-                    data: user,
                     msg: "Change password success",
                 });
             }
+            return res
+                .status(400)
+                .json({
+                msg: "Password incorrect",
+            });
         }
         catch (e) {
             next(e);

@@ -16,6 +16,8 @@ import ContactOwner from "screen/Main/Chat/ContactOwner";
 import AllCar from "screen/Main/AllCar/AllCar";
 import AccountProfile from "screen/Main/AccountProfile/AccountProfile";
 import AddCar from "screen/Main/AddCar";
+import ChangePassword from "screen/Main/ChangePassword/ChangePassword";
+import SearchCar from "screen/Main/Search/SearchCar";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -38,6 +40,8 @@ export default function MainStack() {
       <Stack.Screen name="AllCar" component={AllCar} />
       <Stack.Screen name="AccountProfile" component={AccountProfile} />
       <Stack.Screen name="AddCar" component={AddCar} />
+      <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="SearchCar" component={SearchCar} />
     </Stack.Navigator>
   );
 }

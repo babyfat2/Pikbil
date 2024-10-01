@@ -22,9 +22,9 @@ export default function BoxInput({
   const colors = useAppSelector((state) => (state.darkMode.color));
   return (
     <View>
-      <Text style={{ 
-        fontFamily: 'Montserrat-Bold', 
-        fontSize: 18, 
+      <Text style={{
+        fontFamily: 'Montserrat-Bold',
+        fontSize: 18,
         color: colors.textPrimary,
         marginBottom: 10,
       }}
@@ -33,19 +33,21 @@ export default function BoxInput({
       </Text>
       <TextInput
         style={{
-            borderColor: colors.secondary,
-            borderRadius: 10,
-            borderWidth: 2,
-            width: width * 0.9,
-            height: height / 15,
-            fontSize: 16,
-            fontFamily: "jakara",
-            includeFontPadding: false,
-            padding: 20,
-          }}
-        { ...props }
+          borderColor: colors.secondary,
+          borderRadius: 10,
+          borderWidth: 2,
+          width: width * 0.9,
+          fontSize: 16,
+          fontFamily: "jakara",
+          includeFontPadding: false,
+          paddingTop: 10,
+          paddingLeft: 15,
+          paddingBottom: 10,
+          paddingRight: 20,
+        }}
+        {...props}
       />
-      <Text style={{ 
+      <Text style={{
         fontFamily: 'Montserrat-Light',
         fontSize: 12,
         color: '#FF4423',

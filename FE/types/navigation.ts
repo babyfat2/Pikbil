@@ -56,6 +56,8 @@ export type RootStackParamList = {
   },
   AllCar: undefined;
   AccountProfile: undefined;
+  ChangePassword: undefined;
+  SearchCar: undefined;
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -90,3 +92,7 @@ export type AllCarNavigationProp = NativeStackScreenProps<RootStackParamList, "A
 export type AccountProfileNavigationProp = NativeStackScreenProps<RootStackParamList, "AccountProfile">;
 
 export type AddCarNavigationProp = NativeStackScreenProps<RootStackParamList, "AddCar">;
+
+export type ChangePasswordNavigationProp = NativeStackScreenProps<RootStackParamList, "ChangePassword">;
+
+export type SearchCarNavigationProp = NativeStackScreenProps<RootStackParamList, "SearchCar">;

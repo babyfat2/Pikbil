@@ -17,6 +17,9 @@ import { IBoxChat, IComment, IMessage } from "types/api";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import { useGetMyRoomChatQuery } from "redux/api/chat";
 import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
+import { openAuth } from "redux/slice/routeApp";
+import UserChatBoxskeleton from "components/main/Messange/UserChatBoxSkeleton";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -47,6 +50,7 @@ function Messange() {
     const [dataChat, setDataChat] = useState<IBoxChat[]>([]);
     const socket = useSocket();
     const reloadChat = useAppSelector((status) => status.chat.reloading );
+    const dispath = useDispatch();
     useEffect(() => {
         if (reloadChat) {
           // Khi reloadChat = true, gọi lại API trips
@@ -54,7 +58,6 @@ function Messange() {
         }
       }, [reloadChat]);
     useEffect(() => {
-        console.log("render again");
         socket?.emit('joinRoom',{room : user?.id});
         if (!socket?.hasListeners('reviveMessage')) {
             socket?.on("reciveMessage", (data: {message: IMessage}) => {
@@ -71,16 +74,25 @@ function Messange() {
         <View style={styles.container}>
             <Text style={styles.textMessange}>Messange</Text>
             <SearchChat />
+            { isLoading ?
+            (
+                <>
+                <UserChatBoxskeleton />
+                <UserChatBoxskeleton />
+                <UserChatBoxskeleton />
+                <UserChatBoxskeleton />
+                <UserChatBoxskeleton />
+                <UserChatBoxskeleton />
+                <UserChatBoxskeleton />
+                </>
+            )
+            :
             <FlatList
             showsVerticalScrollIndicator={false}
             data={dataChat}
             renderItem={(item) => <UserChatBox boxChat={item.item} />}
             />
-            <Pressable
-                style={styles.buttonAddChat}
-            >
-                <Text style={styles.textAddChat}>Add new Chat</Text>
-            </Pressable>
+            }
         </View>
     );
 }
@@ -97,21 +109,5 @@ const createStyles = (colors: IColor) =>
             marginTop: 20,
             color: colors.textPrimary,
         },
-        buttonAddChat: {
-            width: width * 13 / 15,
-            position: 'absolute',
-            bottom: 20,
-            left: width / 15,
-            padding: 15,
-            justifyContent: "center",
-            alignItems: "center",
-            backgroundColor: colors.primary,
-            borderRadius: 20,
-        },
-        textAddChat: {
-            color: "#FFFF",
-            fontSize: 18,
-            fontFamily: "Montserrat-Bold",
-        }
     });
 export default Messange;

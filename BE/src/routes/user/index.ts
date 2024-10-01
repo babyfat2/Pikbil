@@ -6,6 +6,7 @@ import { getMyTrip } from "../../controller/user/getMyTrip";
 import { addReviewCar } from "../../controller/user/addReviewCar";
 import { changeAvatar } from "../../controller/user/changeAvatar";
 import { upload } from "../../middleware/multer";
+import { searchForCar } from "../../controller/user/searchForCar";
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -18,6 +19,6 @@ router.post("/changeAvatar", upload.single("photo"), changeAvatar);
 router.post("/addCheckout", addCheckout);
 router.post("/addReviewCar", addReviewCar);
 router.get("/getMyTrip", getMyTrip);
-
+router.get("/searchForCar", searchForCar);
 
 export default router;

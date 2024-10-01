@@ -1,5 +1,5 @@
 import { NextFunction, Response, } from "express";
-import { createHashedPassword, } from "../../middleware/auth";
+import { compareHashedPassword, createHashedPassword, } from "../../middleware/auth";
 import prisma from "../../lib/prisma";
 export async function changePassword(
   req: any,
@@ -8,24 +8,36 @@ export async function changePassword(
 ) {
   console.log("🚀 ~ file: src/controler/user/changePassword");
   const id = req.user.id;
-  const { password }: { password: string } = req.body;
+  const { oldPassword, newPassword }: { oldPassword: string, newPassword: string } = req.body;
   try {
-    const user = await prisma.user.update({
+    const user = await prisma.user.findUnique({
+      where: {
+        id: id,
+      },
+      select: {
+        password: true,
+      }
+    })
+    if (user && await compareHashedPassword(oldPassword, user.password)) {
+      const changePassword = await prisma.user.update({
         where: {
-            id: id,
+          id: id,
         },
         data: {
-            password: await createHashedPassword(password),
+          password: await createHashedPassword(newPassword),
         }
-    })
-    if (user) {
-        return res
+      })
+      return res
         .status(200)
-        .json({ 
-            data: user, 
-            msg: "Change password success",
+        .json({
+          msg: "Change password success",
         })
     }
+    return res
+        .status(400)
+        .json({
+          msg: "Password incorrect",
+        })
   } catch (e: any) {
     next(e);
   }

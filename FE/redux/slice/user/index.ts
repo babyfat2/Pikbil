@@ -1,6 +1,6 @@
 import { createSlice, } from "@reduxjs/toolkit";
+import { actionApi } from "redux/api/action";
 import { authApi } from "redux/api/auth";
-import Colors, { IColor } from "style/color";
 import { IUserData } from "types/api";
 
 export type UserState = {
@@ -49,6 +49,14 @@ const user = createSlice({
               state.error = error;
               state.loading = true;
               state.token = null;
+            }
+          );
+          builder.addMatcher(
+            actionApi.endpoints.changeAvatar.matchFulfilled,
+            (state, { payload }) => {
+              state.data = payload.data;
+              state.error = null;
+              state.loading = false;
             }
           );
     },

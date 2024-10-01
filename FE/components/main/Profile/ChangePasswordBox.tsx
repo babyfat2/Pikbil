@@ -1,4 +1,5 @@
 import {
+    Image,
     Text,
     Dimensions,
     View,
@@ -6,21 +7,15 @@ import {
 } from "react-native";
 import React from "react";
 import { useAppSelector } from "redux/hooks.ts/hooks";
-import {  LogoutIcon, Setting } from "components/icons";
+import { IconPerson, PasswordIcon } from "components/icons";
 import { useNavigation } from "@react-navigation/native";
 import { HomeProp } from "types/navigation";
-import { useDispatch } from "react-redux";
-import { openAuth } from "redux/slice/routeApp";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
-export default function Logout() {
+export default function ChangePasswordBox() {
     const colors = useAppSelector((state) => (state.darkMode.color));
     const navigation = useNavigation<HomeProp>();
-    const dispatch = useDispatch();
-    const onPress = () => {
-        dispatch(openAuth());
-    }
     return (
         <TouchableOpacity
             style={{
@@ -33,15 +28,20 @@ export default function Logout() {
                 borderBottomWidth: 0.3,
                 borderColor: colors.secondary,
             }}
-            onPress={onPress}
+            onPress={() => navigation.navigate("ChangePassword")}
         >
             <View
                 style={{
+                    borderWidth: 2,
+                    borderColor: colors.secondary,
+                    height: height / 16,
+                    width: height / 16,
+                    borderRadius: 15,
                     alignItems: "center",
                     justifyContent: "center",
                 }}
             >
-                <LogoutIcon height={48} width={48} color={colors.secondary} />
+                <PasswordIcon height={24} width={24} color={colors.secondary} />
             </View>
             <Text
                 style={{
@@ -50,7 +50,7 @@ export default function Logout() {
                     fontSize: 20,
                 }}
             >
-                Logout
+                Change Password
             </Text>
         </TouchableOpacity>
     );

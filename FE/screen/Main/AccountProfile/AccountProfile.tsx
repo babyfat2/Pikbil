@@ -29,7 +29,7 @@ function AccountProfile({ navigation, route }: AccountProfileNavigationProp) {
             updateProfile({ fullname: fullname ,uri: avatar.uri, mimeType: avatar.mimeType })
                 .unwrap()
                 .then((e) => {
-                    console.log("aaa");
+                    console.log(e);
                 })
                 .catch((e) => {
                     console.log(e);

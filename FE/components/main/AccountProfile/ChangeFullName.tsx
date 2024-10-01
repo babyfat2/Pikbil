@@ -50,6 +50,7 @@ export default function ChangeFullName(
                     paddingLeft: 20,
                     paddingBottom: 10,
                     marginTop: 10,
+                    color: colors.textPrimary,
                 }}
             />
             </View>

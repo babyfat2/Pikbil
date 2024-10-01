@@ -1,9 +1,9 @@
 import {
+    Text,
+    Dimensions,
     View,
     TextInput,
     TextInputProps,
-    Text,
-    Dimensions,
     TouchableOpacity,
 } from "react-native";
 import React, { useState } from "react";
@@ -12,30 +12,31 @@ import { IconEye, IconEyeInvisible } from "components/icons";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
-export default function BoxInputPassword({
-    props,
-    error,
-}: {
-    props: TextInputProps,
-    error: string,
-}) {
-    const colors = useAppSelector((state) => (state.darkMode.color));
+export default function ChangePasswordInput(
+    {
+        props,
+        name,
+    }: {
+        props: TextInputProps,
+        name: string,
+    }
+) {
+    const colors = useAppSelector((state) => state.darkMode.color);
     const [show, setShow] = useState(false);
     const showPass = () => {
         setShow(!show);
     }
     return (
-        <View
-            style={{ marginBottom: height / 40 }}
-        >
+        <View>
             <Text style={{
                 fontFamily: 'Montserrat-Bold',
                 fontSize: 18,
                 color: colors.textPrimary,
+                marginTop: 20,
                 marginBottom: 10,
             }}
             >
-                Password
+                {name}
             </Text>
             <TextInput
                 style={{
@@ -43,39 +44,29 @@ export default function BoxInputPassword({
                     borderRadius: 10,
                     borderWidth: 2,
                     width: width * 0.9,
+                    color: colors.textPrimary,
                     fontSize: 16,
                     fontFamily: "jakara",
                     includeFontPadding: false,
-                    paddingTop: 10,
-                    paddingLeft: 15,
-                    paddingBottom: 10,
-                    paddingRight: 20,
+                    padding: 10,
+                    paddingLeft: 20,
                 }}
                 secureTextEntry={!show}
                 {...props}
             />
             {show ? (
                 <TouchableOpacity
-                    style={{ position: 'absolute', right: 20, top: 48 }}
+                    style={{ position: 'absolute', right: 0, top: 64}}
                     onPress={showPass}>
                     <IconEye width={32} height={32} color={colors.textSecondary} />
                 </TouchableOpacity>
             ) : (
                 <TouchableOpacity
-                    style={{ position: 'absolute', right: 20, top: 48 }}
+                    style={{ position: 'absolute', right: 0, top: 64 }}
                     onPress={showPass}>
                     <IconEyeInvisible width={32} height={32} color={colors.textSecondary} />
                 </TouchableOpacity>
             )}
-            <Text style={{
-                fontFamily: 'Montserrat-Light',
-                fontSize: 12,
-                color: '#FF4423',
-                marginBottom: 10,
-            }}
-            >
-                {error}
-            </Text>
         </View>
     );
 }

@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { ICar, IDiscount, ITrip } from "../../types/api";
+import { ICar, IDiscount, ITrip, IUserData } from "../../types/api";
 import { RootState } from "redux/store";
 
 export const actionApi = createApi({
@@ -60,7 +60,7 @@ export const actionApi = createApi({
       extraOptions: { maxRetries: 2 }
     }),
     changeAvatar: builder.mutation<
-      {},
+      { data: IUserData},
       {
         fullname: string;
         uri: string;
@@ -75,7 +75,7 @@ export const actionApi = createApi({
         }
         const formData = new FormData();
         formData.append("photo", bolb);
-        formData.append("name", payload.fullname)
+        formData.append("fullname", payload.fullname)
         return {
         url: "/changeAvatar",
         method: "POST",
@@ -85,7 +85,37 @@ export const actionApi = createApi({
         }, };
       },
     }),
+    changePassword: builder.mutation<
+      { msg: string },
+      {
+        oldPassword: string,
+        newPassword: string,
+      }
+    >({
+      query: (payload) => ({
+        url: "/changePassword",
+        method: "POST",
+        body: payload,
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      }),
+    }),
+    searchForCar: builder.query<
+            ICar[],
+            string
+        >({
+            query: (query) => `/searchForCar?query=${query}`,
+            extraOptions: { maxRetries: 2 }
+        }),
   }),
 });
 
-export const { useAddCheckoutMutation, useAddReviewCarMutation ,useGetMyTripQuery, useChangeAvatarMutation } = actionApi;
+export const { 
+  useAddCheckoutMutation, 
+  useAddReviewCarMutation,
+  useGetMyTripQuery, 
+  useChangeAvatarMutation,
+  useChangePasswordMutation,
+  useLazySearchForCarQuery,
+} = actionApi;

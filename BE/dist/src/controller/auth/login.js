@@ -30,10 +30,11 @@ function login(req, res, next) {
                     id: true,
                     email: true,
                     fullname: true,
+                    avatar: true,
                 },
             });
             if (user) {
-                const { id, email, fullname, } = user;
+                const { id, email, fullname, avatar, } = user;
                 if (yield (0, auth_1.compareHashedPassword)(password, user.password)) {
                     const token = (0, auth_1.createJWT)({
                         email,
@@ -46,6 +47,7 @@ function login(req, res, next) {
                             id,
                             email,
                             fullname,
+                            avatar,
                         },
                         msg: "login success",
                     });

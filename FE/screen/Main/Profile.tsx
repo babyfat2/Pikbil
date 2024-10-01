@@ -16,6 +16,7 @@ import SettingBox from "components/main/Profile/SettingBox";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import { openAuth } from "redux/slice/routeApp";
 import Logout from "components/main/Profile/Logout";
+import ChangePasswordBox from "components/main/Profile/ChangePasswordBox";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -31,7 +32,7 @@ function Profile() {
         <View style={styles.container}>
             <AvatarBox />
             <ChooseBox />
-            <ChooseBox />
+            <ChangePasswordBox />
             <SettingBox />
             <Logout />
         </View>

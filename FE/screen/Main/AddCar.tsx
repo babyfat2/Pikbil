@@ -12,6 +12,7 @@ import { IColor } from "style/color";
 import { AddCarNavigationProp } from "types/navigation";
 import { Left } from "components/icons";
 import InputCarBox from "components/main/AddCar/InputCarBox";
+import AddImage from "components/main/AddCar/AddImage";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -122,6 +123,12 @@ function AddCar({ navigation, route }: AddCarNavigationProp) {
                             onChangeText: changeFuelCar,
                         }}
                     />
+                </View>
+            }
+            {step === 4 &&
+                <View style={styles.viewInputCarBox}>
+                    <AddImage />
+                    <AddImage />
                 </View>
             }
             <Pressable style={styles.buttonContinue} onPress={buttonContinue}>

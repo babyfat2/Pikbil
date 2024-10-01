@@ -45,7 +45,7 @@ cron.schedule('* * * * *', async () => {
   console.log('running a task every minute');
   await updateDataInDB();
 });
-
+  
 dotenv.config();
 
 const app = express();

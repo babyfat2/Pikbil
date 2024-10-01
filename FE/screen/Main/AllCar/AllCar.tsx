@@ -5,7 +5,6 @@ import {
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    ScrollView,
 } from "react-native";
 import React from "react";;
 import useStyles from "style/useStyles";
@@ -14,9 +13,8 @@ import Animated from "react-native-reanimated";
 import { AllCarNavigationProp } from "types/navigation";
 import { Left } from "components/icons";
 import { useGetAllCarQuery } from "redux/api/service";
-import CarBoxSkeleton from "components/main/Home/carBoxSkeleton";
-import CarBox from "components/main/Home/carBox";
 import CarBoxAll from "components/main/AllCar/CarBoxAll";
+import CarBoxAllSkeleton from "components/main/AllCar/CarBoxAllSkeleton";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
@@ -36,8 +34,13 @@ function AllCar({ navigation, route }: AllCarNavigationProp) {
                 </TouchableOpacity>
                 <Text style={styles.textAllCar}>ALL CAR</Text>
             </View>
-            {allCar.isLoading ?
-                <CarBoxSkeleton />
+            {allCar.isLoading ? (
+                <>
+                <CarBoxAllSkeleton />
+                <CarBoxAllSkeleton />
+                <CarBoxAllSkeleton />
+                </>
+            )
                 :
                 <FlatList
                     showsVerticalScrollIndicator={false}

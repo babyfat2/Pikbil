@@ -34,7 +34,8 @@
     "node-cron": "^3.0.3",
     "redis": "^4.7.0",
     "save": "^2.9.0",
-    "socket.io": "^4.7.5"
+    "socket.io": "^4.7.5",
+    "typescript-require": "^0.3.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.17",

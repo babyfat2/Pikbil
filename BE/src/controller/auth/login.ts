@@ -19,6 +19,7 @@ export async function login(
         id: true,
         email: true,
         fullname: true,
+        avatar: true,
       },
     });
 
@@ -27,6 +28,7 @@ export async function login(
         id,
         email,
         fullname,
+        avatar,
       } = user;
       if (await compareHashedPassword(password, user.password)) {
         const token = createJWT({
@@ -40,6 +42,7 @@ export async function login(
             id,
             email,
             fullname,
+            avatar,
           },
           msg: "login success",
         });
