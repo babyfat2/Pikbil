@@ -37,7 +37,7 @@ password: @User1111
         <p align="center">Login</p>
     </th>
     <th>
-      <img src="https://firebasestorage.googleapis.com/v0/b/pikbil-2617a.appspot.com/o/image%2FRegister.png?alt=media&token=1f529eb7-7b3a-4c5a-ae90-66d850eed180" />
+      <img src="https://firebasestorage.googleapis.com/v0/b/pikbil-2617a.appspot.com/o/image%2FRegister.png?alt=media&token=1f529eb7-7b3a-4c5a-ae90-66d850eed180" width="270px" height="600px" />
         <p align="center">Register</p>
     </th>
   </tr>
