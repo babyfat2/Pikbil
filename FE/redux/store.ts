@@ -1,14 +1,14 @@
 import { combineReducers, configureStore, } from "@reduxjs/toolkit";
-  import {
-    REHYDRATE,
-    FLUSH,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
-    persistReducer,
-  } from "redux-persist";
-import { reduxStorage } from "./storage";
+import {
+  REHYDRATE,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  persistReducer,
+} from "redux-persist";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import routeApp from "./slice/routeApp";
 import darkMode from "./slice/darkMode";
 import { authApi } from "./api/auth";
@@ -22,7 +22,7 @@ import chat from "./slice/chat";
 
 const persistConfig = {
   key: "root",
-  storage: reduxStorage,
+  storage: AsyncStorage,
   whitelist: ["routeApp", "darkMode", "user"],
 };
   const reducer = combineReducers({
