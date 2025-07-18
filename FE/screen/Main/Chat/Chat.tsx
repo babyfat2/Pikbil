@@ -40,6 +40,7 @@ function Chat({ navigation, route }: ChatNavigationProp) {
             socket?.emit('leaveRoom', { room: user?.id }); // Optionally leave the room if needed
         };
     }, []);
+    console.log(route.params.receiverId);
     if (user && chatMessage)
         return (
             <View style={styles.container}>
@@ -52,7 +53,7 @@ function Chat({ navigation, route }: ChatNavigationProp) {
                         keyExtractor={item => item.id}
                     />
                 </View>
-                <HeaderChat />
+                <HeaderChat receiver={route.params.receiverId} />
                 <InputChat
                     receiverId={route.params.receiverId}
                     roomId={route.params.boxChat.roomId}
@@ -75,6 +76,7 @@ const createStyles = (colors: IColor) =>
         },
         detailChat: {
             position: 'absolute',
+            height: height * 0.8,
             bottom: height * 0.1 + 10,
             left: width / 15,
             width: width * 13/15,

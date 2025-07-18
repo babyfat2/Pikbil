@@ -3,16 +3,24 @@ import {
     Dimensions,
     View,
     TouchableOpacity,
+    Image,
 } from "react-native";
 import React from "react";
 import { useAppSelector } from "redux/hooks.ts/hooks";
 import { Close, Left } from "components/icons";
 import { useNavigation } from "@react-navigation/native";
-import { ChatNavigationProp, HomeProp } from "types/navigation";
+import {  HomeProp } from "types/navigation";
+import { IUserData } from "types/api";
 
 const height = Dimensions.get("window").height;
 const width = Dimensions.get("window").width;
-export default function HeaderContactOwner() {
+export default function HeaderContactOwner(
+    { 
+        owner, 
+    } : {
+        owner: IUserData,
+    }
+) {
     const colors = useAppSelector((state) => (state.darkMode.color));
     const navigation = useNavigation<HomeProp>();
     return (
@@ -41,19 +49,32 @@ export default function HeaderContactOwner() {
                 <View
                     style={{
                         width: 0.75 * width,
-                        flexDirection: 'column',
+                        flexDirection: 'row',
                     }}
                 >
+                     <Image
+                    style={{
+                        height: height * 0.075,
+                        width: height * 0.075,
+                        borderRadius: 40,
+                        marginRight: 10,
+                    }}
+                    source={ owner.avatar ? {uri: owner.avatar} : require("../../../image/avatar.png")}
+                     />
+                     <View style={{
+                        flexDirection: 'column',
+                     }}>
                     <Text style={{
                         fontFamily: 'Montserrat-Bold',
                         fontSize: 18,
                         color: colors.textPrimary,
-                    }}>Floy Miles</Text>
+                    }}>{owner.fullname}</Text>
                     <Text style={{
                         fontSize: 14,
                         color: colors.textSecondary,
                     }}
-                    >Floy Miles</Text>
+                    >{owner.fullname}</Text>
+                    </View>
                 </View>
             </View>
         </View>

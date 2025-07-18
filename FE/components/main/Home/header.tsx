@@ -45,7 +45,9 @@ export default function HeaderHome() {
                 >
                     <Search height={32} width={32} color={colors.primary} />
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity
+                onPress={() => navigation.navigate("Notification")}
+                >
                     <Notification height={32} width={32} color={colors.primary} />
                 </TouchableOpacity>
             </View>

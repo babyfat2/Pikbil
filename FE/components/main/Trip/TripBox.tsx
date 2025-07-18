@@ -20,7 +20,6 @@ function TripBox({
 }: {
     tripInfor: ITrip;
 }) {
-    console.log(tripInfor.car);
     const { colors, styles } = useStyles(createStyles);
     const navigation = useNavigation<HomeProp>();
     const date = new Date(tripInfor.createdAt);

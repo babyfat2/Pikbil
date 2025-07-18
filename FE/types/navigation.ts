@@ -58,6 +58,10 @@ export type RootStackParamList = {
   AccountProfile: undefined;
   ChangePassword: undefined;
   SearchCar: undefined;
+  AllComment: {
+    carId: string;
+  };
+  Notification: undefined;
 }
 export type HomeProp = NavigationProp<RootStackParamList, "Home">;
 
@@ -96,3 +100,7 @@ export type AddCarNavigationProp = NativeStackScreenProps<RootStackParamList, "A
 export type ChangePasswordNavigationProp = NativeStackScreenProps<RootStackParamList, "ChangePassword">;
 
 export type SearchCarNavigationProp = NativeStackScreenProps<RootStackParamList, "SearchCar">;
+
+export type AllCommentNavigationProp = NativeStackScreenProps<RootStackParamList, "AllComment">;
+
+export type NotificationNavigationProp = NativeStackScreenProps<RootStackParamList, "Notification">;

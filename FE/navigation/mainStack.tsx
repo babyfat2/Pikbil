@@ -18,6 +18,8 @@ import AccountProfile from "screen/Main/AccountProfile/AccountProfile";
 import AddCar from "screen/Main/AddCar";
 import ChangePassword from "screen/Main/ChangePassword/ChangePassword";
 import SearchCar from "screen/Main/Search/SearchCar";
+import AllComment from "screen/Main/CarDetail/AllComment";
+import Notification from "screen/Main/Notification/Notification";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
@@ -42,6 +44,8 @@ export default function MainStack() {
       <Stack.Screen name="AddCar" component={AddCar} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="SearchCar" component={SearchCar} />
+      <Stack.Screen name="AllComment" component={AllComment} />
+      <Stack.Screen name="Notification" component={Notification} />
     </Stack.Navigator>
   );
 }

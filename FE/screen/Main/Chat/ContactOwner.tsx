@@ -61,9 +61,10 @@ function ContactOwner({ navigation, route }: ContactOwnerNavigationProp) {
     if(user)
         return (
             <View style={styles.container}>
-                <HeaderContactOwner />
+                <HeaderContactOwner owner={owner} />
                 <View style={styles.detailChat}>
                     <FlatList
+                    showsVerticalScrollIndicator={false}
                         inverted={true}
                         data={chatMessage}
                         renderItem={({ item }) => <BoxMessage message={item} userId={user.id} />}
@@ -101,6 +102,7 @@ const createStyles = (colors: IColor) =>
         },
         detailChat: {
             position: 'absolute',
+            height: height * 0.8,
             bottom: height * 0.1 + 10,
             left: width / 15,
             width: width * 13/15,

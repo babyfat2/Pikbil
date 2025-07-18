@@ -53,6 +53,7 @@ const createStyles = (colors: IColor) =>
             paddingLeft: width * 0.05,
             paddingRight: width * 0.05,
             flexDirection: 'row',
+            marginTop: 20,
         },
         containerAvatar: {
             width: width * 0.1,

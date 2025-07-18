@@ -56,12 +56,18 @@ function CarDetail({navigation, route}: CarDetailNavigationProp) {
                 fontFamily: 'Montserrat-Bold',
                 fontSize: 18,
                 color: colors.textPrimary,
-                marginBottom: 15,
                 marginLeft: width * 0.05,
             }}>
                 REVIEW
             </Text>
             <CarComment comment={comment.currentData?.at(0)} />
+            <CarComment comment={comment.currentData?.at(1)} />
+            <TouchableOpacity 
+            style={styles.buttonSeeMoreReview}
+            onPress={() => navigation.navigate("AllComment", {carId: car.id})}
+            >
+                <Text style={styles.textSeeMoreReview}>See more review</Text>
+            </TouchableOpacity>
             </ScrollView>
             {!isOwner && <RentCar car={car} />}
         </Animated.View>
@@ -72,6 +78,17 @@ const createStyles = (colors: IColor) =>
         container: {
             flex: 1,
             backgroundColor: colors.backgroundColor,
+        },
+        buttonSeeMoreReview: {
+            height: height * 0.05,
+            width: '100%',
+            alignItems: 'center',
+            justifyContent: 'center',        
+        },
+        textSeeMoreReview: {
+            color: colors.textPrimary,
+            fontFamily: 'Montserrat-Bold',
+            fontSize: 16,
         },
     });
 export default CarDetail;
